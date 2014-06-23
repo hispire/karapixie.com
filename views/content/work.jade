@@ -1,0 +1,44 @@
+//TODO
+// Implement lazy load or pagination.
+
+extends page
+block page
+  include menu
+  ul.list--no-style.list--horizontal.l--align-center.spacer__margin-bottom--size-large(id='filters' class=blocks['island--small'])
+    li.l--align-center.spacer__margin-bottom--size-large(class=blocks['text-area--neutral-soft'])
+      a.container__border--size-xsmall.active(href='#' id='all' class=blocks['container--rounded'] ) All
+    li.l--align-center(class=blocks['text-area--neutral-soft'])
+      a.container__border--size-xsmall(href='#' id='Oil' class=blocks['container--rounded'] ) Oil
+    li.l--align-center(class=blocks['text-area--neutral-soft'])
+      a.container__border--size-xsmall(href='#' id='Acrylic' class=blocks['container--rounded'] ) Acrylic
+    li.l--align-center(class=blocks['text-area--neutral-soft'])
+      a.container__border--size-xsmall(href='#' id='Charcoal' class=blocks['container--rounded'] ) Charcoal
+    li.l--align-center(class=blocks['text-area--neutral-soft'])
+      a.container__border--size-xsmall(href='#' id='PrintMaking' class=blocks['container--rounded'] ) Print Making
+    li.l--align-center(class=blocks['text-area--neutral-soft'])
+      a.container__border--size-xsmall(href='#' id='ReliefPrints' class=blocks['container--rounded'] ) Relief Prints
+    li.l--align-center(class=blocks['text-area--neutral-soft'])
+      a.container__border--size-xsmall(href='#' id='Sketches' class=blocks['container--rounded'] ) Sketches
+  div.l.l--align-center.l-col--12-of-12.l--last.animated.fadeInLeft
+    ul.l.list--no-style.l-col--12-of-12.l--align-center(id="catalogList").gallery__container
+      - var i = 0;
+      - var nProducts = 1;
+      each item in items
+        -if (nProducts != 0 && nProducts % 4 == 0)
+          - var last = 'l--last-md'
+        - else
+          - var last = ''
+        - var cat = item.category.name 
+        - var category = cat.replace(/\s+/g, '')
+        li(class=blocks['catalog__item'] class=last id=category)
+          article(class=blocks['text-area--secondary'] class=blocks['island--small'])
+            div.l.l-col--12-of-12.catalog__item.l--align-center
+              each image in item.images
+                a(href=image.url title=item.title)
+                  img(src=image.url alt=item.title)
+              h4 #{item.title} 
+              p 
+                span #{item.category.name}
+              p #{item.description}
+        - nProducts += 1;
+      div.l#placeHolder

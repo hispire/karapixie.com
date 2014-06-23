@@ -1,0 +1,21 @@
+extends page
+block page
+  section.l-col--12-of-12.spacer__padding-right--size-small.spacer__padding-left--size-small.spacer__padding-top--size-xxlarge.spacer__padding-bottom--size-xxlarge
+    article.l.l-col--12-of-12.spacer__padding-top--size-large.l--align-center(class=blocks['text-area--neutral'])
+      if badCredentials
+        div
+          div.l.l-col--12-of-12.l-col--4-of-12-sm(class=blocks['container--rounded-error'])
+            p The login information you entered is not correct
+      div.l.l-col--12-of-12.l-col--4-of-12-sm    
+        form(action='/admin' method='post')
+          div
+            input(type='hidden', name='_csrf', value="#{csrf}")
+            div
+              label(for='username') Username
+            input.l-col--12-of-12.l-col--12-of-12-sm(class=blocks['form__input--rounded'] type='text' name='username' placeholder='Enter your username' )
+          div
+            div
+              label(for='password') Password
+            input.l-col--12-of-12.l-col--12-of-12-sm(class=blocks['form__input--rounded'] type='password' name='password' placeholder='Enter your password')
+
+          button.l-col--4-of-12.bg__gradient--linear-tertiary(class=blocks['form__submit--rounded'] type='submit',name='submit',id='submit') Log in

@@ -1,0 +1,20 @@
+- var i = 0;
+- var nProducts = 1;
+each item in items
+  -if (nProducts != 0 && nProducts % 4 == 0)
+    - var last = 'l--last-md'
+  - else
+    - var last = ''
+  - var cat = item.category.name 
+  - var category = cat.replace(/\s+/g, '')
+  li(class=blocks['catalog__item'] class=last id=category)
+    article(class=blocks['text-area--secondary'] class=blocks['island--small'])
+      div.l.l-col--12-of-12.catalog__item.l--align-center
+        each image in item.images
+          a(href=image.url title=item.title)
+            img(src=image.url alt=item.title)
+            h4 #{item.title} 
+            p 
+              span #{item.category.name}
+            p #{item.description}
+  - nProducts += 1; 

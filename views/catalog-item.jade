@@ -1,0 +1,44 @@
+// TODO
+// Select for default the actual option in the DB for the category option input
+
+
+extends page
+block page
+  article
+    div.l-col--12-of-12.background__color--neutral-loud.spacer__margin-bottom--size-xxlarge(class=blocks['island--small'] class=blocks['text-area--neutral-soft'])
+      div.l.l-col--7-of-12
+        if user
+          p Logged in as: 
+            b #{user.username}
+            //b #{user.role}
+      div.l.l-col--5-of-12.l--last
+        a(href="/logout")
+          button.bg__gradient--linear-red(class=blocks['form__submit--rounded'] id='submit') Logout
+    div.l.l-col--12-of-12(class=blocks['text-area--neutral'])      
+      h3 Actualizar producto
+      - if (messages.valErrors)
+        - each err in messages.valErrors
+          p #{err.msg}
+      #addProduct
+        div.l.l-col--11-of-12.l-col--7-of-12-sm.l--last.l--last-sm    
+          form#productForm(action='/admin/catalog' method='post' enctype="multipart/form-data")
+            if messages.dataForm
+              - var fields = {title: messages.dataForm[0].title, description: messages.dataForm[0].description}
+            else
+              - var fields = {title: item.title, description: item.description}
+            
+            input(type="hidden" name="_method" value="put")
+            input(type="hidden" name="item_id" value=item._id)
+            input.l-col--12-of-12#inputProductName(type='text', name='title', placeholder='Title', value=fields.title)
+            input#inputProductDescription(type='text', name='description', placeholder='Description', value=fields.description)
+            div
+              label(for='category') Category:
+            select(name='category')
+              - each category in categories
+                option(value='' + category._id + '') #{category.name}
+            div
+              label(for='file') Imagen:
+            input.l-col--12-of-12#inputProductImage(class=blocks['form__input--rounded'] type='file' name="file")
+            div
+              input.bg__gradient--linear-tertiary(class=blocks['form__submit--rounded'] id="submit" type="submit" value="Actualizar")
+              //button#btnAddProduct Add User
