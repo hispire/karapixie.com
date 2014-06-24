@@ -214,9 +214,6 @@
 .foreground__color--neutral-loud span {
   color: #1e1e1e;
 }
-.foreground__color--neutral-loud strong {
-  color: #d6a34b;
-}
 .foreground__color--neutral-loud a {
   border-color: #fefdff;
 }
@@ -283,7 +280,7 @@
   color: #edeadc;
 }
 .foreground__color--neutral-soft a {
-  color: #ead1a5;
+  color: #edeadc;
 }
 .foreground__color--neutral-soft a:hover,
 .foreground__color--neutral-soft .active {
