@@ -7,7 +7,6 @@ router.get('/', function(req, res, next) {
     
     CatalogModel.find({}, null, {skip: 0, limit: 4}).sort('id').populate('category').exec(function(err, items){
     items.forEach(function(item) {
-      console.log(item._id);
     });
     res.render('content/work', {items:items});  
   })
