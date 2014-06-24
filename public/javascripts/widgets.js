@@ -103,7 +103,12 @@ $(document).ready(function() {
 	i += 1;
            AddMoreContent(i); 
       }
- });    
+ }); 
+      $('#moreData').click(function(e){
+      e.preventDefault();
+      i += 1;
+      AddMoreContent(i);
+    });
 
 
 });  
