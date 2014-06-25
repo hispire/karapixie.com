@@ -29,8 +29,12 @@ block page
             
             input(type="hidden" name="_method" value="put")
             input(type="hidden" name="item_id" value=item._id)
-            input.l-col--12-of-12#inputProductName(type='text', name='title', placeholder='Title', value=fields.title)
-            input#inputProductDescription(type='text', name='description', placeholder='Description', value=fields.description)
+            div
+              label(for='title') Title:
+            input.l-col--12-of-12#inputProductName(type='text', name='title', placeholder='Title', value=fields.title class=blocks['form__input--rounded'])
+            div
+              label(for='description') Description:
+            input#inputProductDescription(type='text', name='description', placeholder='Description', value=fields.description class=blocks['form__input--rounded'])
             div
               label(for='category') Category:
             select(name='category')
@@ -38,7 +42,7 @@ block page
                 option(value='' + category._id + '') #{category.name}
             div
               label(for='file') Imagen:
-            input.l-col--12-of-12#inputProductImage(class=blocks['form__input--rounded'] type='file' name="file")
+            input.l-col--12-of-12#inputProductImage(class=blocks['form__input--rounded'] type='file' name="file" )
             div
-              input.bg__gradient--linear-tertiary(class=blocks['form__submit--rounded'] id="submit" type="submit" value="Actualizar")
+              input.bg__gradient--linear-tertiary(class=blocks['form__submit--rounded'] id="submit" type="submit" value="Update")
               //button#btnAddProduct Add User
