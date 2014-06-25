@@ -1958,6 +1958,17 @@ svg {
   position: absolute;
   z-index: 98;
 }
+#video_background {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+  overflow: hidden;
+}
 /***/
 * {
   -moz-box-sizing: border-box;

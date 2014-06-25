@@ -31,6 +31,11 @@
 	   filterData(filter);
 	   galeryPopup();
       });
+      $.get('/work/' + (i+1), function(data) {
+        if(data == 'no more data') {
+	  $('#moreData').hide();
+	  }
+      });
  }
  
 function galeryPopup() {
@@ -97,14 +102,14 @@ $(document).ready(function() {
     // Show a loading gif
     var i = 0;
     $(window).scroll(function(){
-      console.log($(window).scrollTop());
+      //console.log($(window).scrollTop());
       
       if  ($(window).scrollTop() == $(document).height() - $(window).height()){
 	i += 1;
            AddMoreContent(i); 
       }
  }); 
-      $('#moreData').click(function(e){
+      $('#moreData a').click(function(e){
       e.preventDefault();
       i += 1;
       AddMoreContent(i);
