@@ -68,7 +68,7 @@ function filterData(filter) {
 
 // MAGNIFIC ZOOM IMALGES ONCLICK
 $(document).ready(function() {
-
+   $( "#intro" ).parent().css("overflow", "hidden");
    galeryPopup();  
     // DYNAMIC FILTER DATA
   
