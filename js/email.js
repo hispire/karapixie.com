@@ -18,11 +18,13 @@ this.mailOptions = function (email, name, subject, message) {
       //replace it with id you want to send multiple must be separated by ,(comma)
       subject: subject,
       //generateTextFromHTML: true,
-      text: "De: "+ name + "\n" +
+      text: "From: "+ name + "\n" +
 	    "Email: "+ email + "\n" +
-	    "Mensaje: \n\n"+ message,
+	    "Subject: "+ subject + "\n" +
+	    "Messsage: \n\n"+ message,
       html: "<p><b>De: </b>" + name + 
 	    "</p> <p><b>Email: </b>"+ email +
+	    "</p> <p><b>Subject: </b>"+ subject +
 	    "</p> <h4>Mensaje: </h4><p>"+ message + "</p>"
     
 

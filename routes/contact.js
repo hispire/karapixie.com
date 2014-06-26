@@ -21,9 +21,10 @@ router.route('/')
   
 })
 .post(function (req, res) {
-  req.assert('name', '__("nombre")').notEmpty();
-  req.assert('email', 'Email valido necesario').isEmail();
-  req.assert('message', 'Por favor escribe un mensaje').len(5, 1000);
+  req.assert('name', 'Please enter your name').notEmpty();
+  req.assert('email', 'Please enter your email').notEmpty();
+  req.assert('email', 'Valid email required').isEmail();
+  req.assert('message', 'Please write a message').len(5, 1000);
   //var mappedErrors = req.validationErrors(true);
   var valErrors = req.validationErrors();
   var dataForm = {};
@@ -35,13 +36,13 @@ router.route('/')
     email.smtpConfig.sendMail(email.mailOptions(req.body.email, req.body.name, req.body.subject, req.body.message), function (error, response) {
       //Email not sent
       if (error) {
-        req.flash('error', 'Fallo al enviar el formulario!');
+        req.flash('error', 'An arror ocurred sending the request!');
 	res.redirect('/contact/#contact');
 	console.log(error);
       }
      //email sent successfully
       else {
-        req.flash('info', 'Formulario enviado, Gracias! Responderemos lo antes posible.');
+        req.flash('info', 'Request sent! I will responde as soon as possible');
         res.redirect('/contact/#contact');
 
     //res.end("Email sent successfully");

@@ -3,7 +3,7 @@ block page
   include menu
   section.l-col--12-of-12.background__color--neutral-very-loud.bg__texture--noise-light.spacer__padding-right--size-small.spacer__padding-left--size-small.spacer__padding-top--size-xxlarge.spacer__padding-bottom--size-xxlarge(id="contact")
     article.spacer__padding-top--size-large(class=blocks['text-area--neutral-soft'])
-      h3= __("podemos ayudarte")
+      h3 How can i help you?
       - if (messages.info)
         div.foreground--success(class=blocks['container--rounded-flash'])
           span.flash__msg= messages.info
@@ -15,44 +15,44 @@ block page
           input(type='hidden', name='_csrf', value=token)
           div.l-col--10-of-12
             div
-              label(for='name')= __("nombre") + ':'
+              label(for='name') Name
             - if (messages.valErrors)
               - each err in messages.valErrors
                 -if (err.param === 'name')
                   div.l-col--12-of-12.l-col--6-of-12-sm.foreground--error(class=blocks['container--rounded-flash'])
-                    span.flash__msg= __("nombre")
+                    span.flash__msg= err.msg
             - if(messages.dataForm)
-              input.l-col--12-of-12.l-col--6-of-12-sm(class=blocks['form__input--rounded'] type='text',name='name',id='name', placeholder= __("nombre"), value=messages.dataForm[0].name)
+              input.l-col--12-of-12.l-col--6-of-12-sm(class=blocks['form__input--rounded'] type='text',name='name',id='name', placeholder='Enter your name', value=messages.dataForm[0].name)
             - else
-              input.l-col--12-of-12.l-col--6-of-12-sm(class=blocks['form__input--rounded'] type='text',name='name',id='name', placeholder=__("nombre"))
+              input.l-col--12-of-12.l-col--6-of-12-sm(class=blocks['form__input--rounded'] type='text',name='name',id='name', placeholder='Enter your name')
             div
-              label(for='email')= __("correo electronico") + ':'
+              label(for='email') Email
             - if (messages.valErrors)
               - each err in messages.valErrors
                 -if (err.param === 'email')
                   div.l-col--12-of-12.l-col--6-of-12-sm.foreground--error(class=blocks['container--rounded-flash'])
                     span.flash__msg= err.msg
             - if(messages.dataForm)
-              input.l-col--12-of-12.l-col--6-of-12-sm(class=blocks['form__input--rounded'] type='text',name='email',id='email', placeholder= __("correo electronico"), value=messages.dataForm[0].email)
+              input.l-col--12-of-12.l-col--6-of-12-sm(class=blocks['form__input--rounded'] type='text',name='email',id='email', placeholder='Enter your email address', value=messages.dataForm[0].email)
             - else
-              input.l-col--12-of-12.l-col--6-of-12-sm(class=blocks['form__input--rounded'] type='text',name='email',id='email', placeholder= __("correo electronico"))
+              input.l-col--12-of-12.l-col--6-of-12-sm(class=blocks['form__input--rounded'] type='text',name='email',id='email', placeholder='Enter your email address')
           div.l-col--10-of-12.spacer__margin-bottom--size-large
             div
-              label(for='subject')= __("asunto")
+              label(for='subject') Subject
             - if (title)
               - var subject = title
             - else
               - var subject = ''
-            input.l-col--12-of-12.l-col--6-of-12-sm(class=blocks['form__input--rounded'] type='text',name='subject',id='subject', placeholder= __("asunto"), value=subject)
+            input.l-col--12-of-12.l-col--6-of-12-sm(class=blocks['form__input--rounded'] type='text',name='subject',id='subject', placeholder='Enter a subject', value=subject)
             div
-              label(for='message')= __("mensaje")
+              label(for='message') Message
             - if (messages.valErrors)
               - each err in messages.valErrors
                 -if (err.param === 'message')
                   div.foreground--error(class=blocks['container--rounded-flash'])
                     span.flash__msg= err.msg
             textarea.l-col--12-of-12.spacer__margin-bottom--size-small(class=blocks['form__input--rounded'] name='message', id='message', placeholder='Hola Rus, me gustaría...')  
-            input.l-col--4-of-12.bg__gradient--linear-tertiary(class=blocks['form__submit--rounded'] type='submit',name='submit',id='submit', value= __("enviar"))
+            input.l-col--4-of-12.bg__gradient--linear-tertiary(class=blocks['form__submit--rounded'] type='submit',name='submit',id='submit', value='Send')
       div.l.l-col--12-of-12.l-col--4-of-12-sm.l--last-sm
         //h4 Personas de contacto
         div.spacer__margin-bottom--size-large
