@@ -27,30 +27,33 @@ block page
       div.l.l-col--12-of-12.l-col--8-of-12-sm
         form(id="contact-form" method='post',action='/contact')
           input(type='hidden', name='_csrf', value=token)
+          - if (title)
+             - var subject = title
+          - else
+            - var subject = ''
+          if messages.dataForm
+            - var fields = {name: messages.dataForm[0].name, email: messages.dataForm[0].email, subject: messages.dataForm[0].subject}
+          else
+            - var fields = {name: '', email: '', subject: subject}
           div.l-col--12-of-12
             div.l.l-col--12-of-12.l-col--6-of-12-sm
               - if (messages.valErrors)
                 - each err in messages.valErrors
                   -if (err.param === 'name')
                     span.flash__msg.foreground--error= err.msg
-              - if(messages.dataForm)
-                input.l-col--12-of-12(class=blocks['form__input--rounded'] type='text',name='name',id='name', placeholder='Enter your name', value=messages.dataForm[0].name)
-              - else
-                input.l-col--12-of-12(class=blocks['form__input--rounded'] type='text',name='name',id='name', placeholder='Enter your name')
+              input.l-col--12-of-12(class=blocks['form__input--rounded'] type='text',name='name',id='name', placeholder='Enter your name', value=fields.name)
             div.l.l-col--12-of-12.l-col--6-of-12-sm.l--last-sm
               - if (messages.valErrors)
                 - each err in messages.valErrors
                   -if (err.param === 'email')
                     span.foreground--error.flash__msg= err.msg
-              - if(messages.dataForm)
-                input.l-col--12-of-12(class=blocks['form__input--rounded'] type='text',name='email',id='email', placeholder='Enter your email address', value=messages.dataForm[0].email)
-              - else
-                input.l-col--12-of-12(class=blocks['form__input--rounded'] type='text',name='email',id='email', placeholder='Enter your email address')
-            - if (title)
-              - var subject = title
-            - else
-              - var subject = ''
-            input.l.l-col--12-of-12.l-col--6-of-12-sm(class=blocks['form__input--rounded'] type='text',name='subject',id='subject', placeholder='Enter a subject', value=subject)
+              input.l-col--12-of-12(class=blocks['form__input--rounded'] type='text',name='email',id='email', placeholder='Enter your email address', value=fields.email)
+            div.l.l-col--12-of-12.l-col--6-of-12-sm
+              - if (messages.valErrors)
+                - each err in messages.valErrors
+                  -if (err.param === 'subject')
+                    span.flash__msg.foreground--error= err.msg
+              input.l-col--12-of-12(class=blocks['form__input--rounded'] type='text',name='subject',id='subject', placeholder='Enter a subject', value=fields.subject)
             div
               label(for='message') Message
             - if (messages.valErrors)

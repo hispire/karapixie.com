@@ -22,6 +22,7 @@ router.route('/')
 })
 .post(function (req, res) {
   req.assert('name', 'Please enter your name').notEmpty();
+  req.assert('subject', 'Please enter a subject').notEmpty();
   //req.assert('email', 'Please enter your email').notEmpty();
   req.assert('email', 'Valid email required').isEmail();
   req.assert('message', 'Please write a message').len(5, 1000);
@@ -52,6 +53,7 @@ router.route('/')
   else {
     dataForm.name = req.body.name;
     dataForm.email = req.body.email;
+    dataForm.subject = req.body.subject;
     //app.locals.msg = msg;
     req.flash('dataForm', dataForm);
     req.flash('valErrors', valErrors);
