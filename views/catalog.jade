@@ -72,7 +72,7 @@ block page
             if messages.dataForm
               - var fields = {title: messages.dataForm[0].title, description: messages.dataForm[0].description}
             else
-              - var fields = {title: '', description: ''}
+              - var fields = {title: '', description: '', height: '', width: ''}
             div
               label(for='name') Title:
             input.l-col--12-of-12#inputProductName(class=blocks['form__input--rounded'] type='text', name='title', placeholder='Title', value=fields.title, required)
@@ -81,9 +81,15 @@ block page
             input.l-col--12-of-12#inputProductDescription(class=blocks['form__input--rounded'] type='text', name='description', placeholder='Description', value=fields.description, required)
             div
               label(for='category') Category:
-            select(name='category')
+            select(name='category' class=blocks['form__input--rounded'])
               - each category in categories
                 option(value='' + category.id + '') #{category.name}
+            div
+              label(for='size') Size:
+            label(for='height') Height
+            input.l-col--5-of-12#inputProductDescription(class=blocks['form__input--rounded'] type='number', name='height', placeholder='Height', value=fields.height, required)
+            label(for='height') Width
+            input.l-col--5-of-12#inputProductDescription(class=blocks['form__input--rounded'] type='number', name='width', placeholder='Width', value=fields.width, required)
             div
               label(for='file') Image:
             input.l-col--12-of-12#inputProductImage(class=blocks['form__input--rounded'] type='file' name="file")

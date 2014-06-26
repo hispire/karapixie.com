@@ -59,6 +59,8 @@ router.route('/')
             } else {
 	      item.images = [{kind: "detail", url: url_img}];
 	      item.title = req.body.title,
+	      item.height = req.body.height,
+	      item.width = req.body.width,
 	      item.category = req.body.category,
 	      item.description = req.body.description,
 	      item.save(function(err,item){
@@ -76,6 +78,8 @@ router.route('/')
           deleteFile(tmp_path);
 	  item.title = req.body.title,
 	  item.category = req.body.category,
+	  item.height = req.body.height,
+	  item.width = req.body.width,
 	  item.description = req.body.description,
 	  item.save(function(err,item){
 	    if (err) {
@@ -133,6 +137,8 @@ router.route('/')
 	var item = new CatalogModel({
 	title : req.body.title,
 	category: req.body.category,
+	height: req.body.height,
+	width: req.body.width,
 	description : req.body.description,
 	images: [{kind: "detail", url: url_img}]
 	});

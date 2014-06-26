@@ -32,7 +32,7 @@ var work = require('./routes/work');
 // multilingual module config
 i18n.configure({
   locales: ['es', 'en'],
-  defaultLocale: 'es',
+  defaultLocale: 'en',
   updateFiles: false,
   cookie: 'locale',
   directory: __dirname + '/locales'

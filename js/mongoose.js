@@ -27,8 +27,12 @@ var Images = new Schema({
         enum: ['thumbnail', 'detail'],
         required: true
     },
-    url: { type: String, required: true }
+    url: { 
+      type: String, 
+      required: true 
+    }
 });
+
 
 
 // Category
@@ -57,6 +61,14 @@ var CatalogItem = new Schema({
     category: {
       type: Schema.Types.ObjectId,
       ref: 'Category'
+    },
+    height: {
+      type: Number,
+      required: true
+    },
+    width: {
+      type: Number,
+      required: true
     },
     images: [Images],
     modified: { 

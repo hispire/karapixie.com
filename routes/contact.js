@@ -16,8 +16,12 @@ var email = require('.././js/email.js');
 
 
 router.route('/')
+.get(function (req, res) {
+  res.render('content/contact');
+  
+})
 .post(function (req, res) {
-  req.assert('name', 'Nombre obligatorio').notEmpty();
+  req.assert('name', '__("nombre")').notEmpty();
   req.assert('email', 'Email valido necesario').isEmail();
   req.assert('message', 'Por favor escribe un mensaje').len(5, 1000);
   //var mappedErrors = req.validationErrors(true);
@@ -32,13 +36,13 @@ router.route('/')
       //Email not sent
       if (error) {
         req.flash('error', 'Fallo al enviar el formulario!');
-	res.redirect('/#contact');
+	res.redirect('/contact/#contact');
 	console.log(error);
       }
      //email sent successfully
       else {
         req.flash('info', 'Formulario enviado, Gracias! Responderemos lo antes posible.');
-        res.redirect('/#contact');
+        res.redirect('/contact/#contact');
 
     //res.end("Email sent successfully");
       }
@@ -50,10 +54,15 @@ router.route('/')
     //app.locals.msg = msg;
     req.flash('dataForm', dataForm);
     req.flash('valErrors', valErrors);
-    res.redirect('/#contact-form');
+    res.redirect('/contact/#contact-form');
     
   }
 });
+router.get('/:title', function (req, res) {
+  res.locals.title = req.params.title;
+  res.render('content/contact');
+  
+})
 
 
 module.exports = router;

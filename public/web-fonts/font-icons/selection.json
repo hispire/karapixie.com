@@ -12,7 +12,7 @@
 			},
 			"properties": {
 				"id": 1,
-				"order": 4,
+				"order": 2,
 				"prevSize": 32,
 				"code": 58881,
 				"name": "uniE601",
@@ -31,7 +31,7 @@
 			},
 			"properties": {
 				"id": 2,
-				"order": 5,
+				"order": 3,
 				"prevSize": 32,
 				"code": 58882,
 				"name": "uniE602",
@@ -50,7 +50,7 @@
 			},
 			"properties": {
 				"id": 16,
-				"order": 41,
+				"order": 10,
 				"prevSize": 32,
 				"code": 58896,
 				"name": "uniE610",
@@ -69,7 +69,7 @@
 			},
 			"properties": {
 				"id": 20,
-				"order": 23,
+				"order": 4,
 				"prevSize": 32,
 				"code": 58900,
 				"name": "uniE614",
@@ -88,7 +88,7 @@
 			},
 			"properties": {
 				"id": 31,
-				"order": 34,
+				"order": 5,
 				"prevSize": 32,
 				"code": 58911,
 				"name": "uniE61F",
@@ -107,7 +107,7 @@
 			},
 			"properties": {
 				"id": 32,
-				"order": 35,
+				"order": 6,
 				"prevSize": 32,
 				"code": 58912,
 				"name": "uniE620",
@@ -126,7 +126,7 @@
 			},
 			"properties": {
 				"id": 34,
-				"order": 37,
+				"order": 7,
 				"prevSize": 32,
 				"code": 58914,
 				"name": "uniE622",
@@ -145,7 +145,7 @@
 			},
 			"properties": {
 				"id": 35,
-				"order": 40,
+				"order": 9,
 				"prevSize": 32,
 				"code": 58942,
 				"name": "uniE63E",
@@ -164,7 +164,7 @@
 			},
 			"properties": {
 				"id": 36,
-				"order": 39,
+				"order": 8,
 				"prevSize": 32,
 				"code": 59235,
 				"name": "uniE763",
@@ -189,7 +189,7 @@
 			},
 			"properties": {
 				"id": 5,
-				"order": 43,
+				"order": 12,
 				"prevSize": 32,
 				"code": 58915,
 				"name": "pencil",
@@ -213,7 +213,7 @@
 			},
 			"properties": {
 				"id": 13,
-				"order": 44,
+				"order": 13,
 				"prevSize": 32,
 				"code": 58880,
 				"name": "image",
@@ -239,7 +239,7 @@
 			},
 			"properties": {
 				"id": 168,
-				"order": 2,
+				"order": 1,
 				"prevSize": 32,
 				"code": 58916,
 				"name": "remove",
@@ -262,7 +262,7 @@
 			},
 			"properties": {
 				"id": 258,
-				"order": 42,
+				"order": 11,
 				"prevSize": 32,
 				"code": 58883,
 				"name": "plus",
@@ -270,6 +270,28 @@
 			},
 			"setIdx": 1,
 			"iconIdx": 258
+		},
+		{
+			"icon": {
+				"paths": [
+					"M852 0h-680c-94.6 0-172 77.4-172 172v680c0 94.6 77.4 172 172 172h680c94.6 0 172-77.4 172-172v-680c0-94.6-77.4-172-172-172zM384 832h-128v-448h128v448zM320 320c-35.346 0-64-28.654-64-64s28.654-64 64-64 64 28.654 64 64-28.654 64-64 64zM832 832h-128v-256c0-35.346-28.654-64-64-64s-64 28.654-64 64v256h-128v-448h128v79.472c26.398-36.264 66.752-79.472 112-79.472 79.53 0 144 71.634 144 160v288z"
+				],
+				"tags": [
+					"linkedin",
+					"social"
+				],
+				"grid": 16
+			},
+			"properties": {
+				"id": 415,
+				"order": 14,
+				"prevSize": 32,
+				"code": 58884,
+				"name": "linkedin",
+				"ligatures": ""
+			},
+			"setIdx": 1,
+			"iconIdx": 415
 		}
 	],
 	"height": 1024,

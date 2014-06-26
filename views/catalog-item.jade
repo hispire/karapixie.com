@@ -41,6 +41,12 @@ block page
               - each category in categories
                 option(value='' + category._id + '') #{category.name}
             div
+              label(for='size') Size:
+            label(for='height') Height
+            input.l-col--5-of-12#inputProductDescription(class=blocks['form__input--rounded'] type='number', name='height', placeholder='Height', value=fields.height, required)
+            label(for='height') Width
+            input.l-col--5-of-12#inputProductDescription(class=blocks['form__input--rounded'] type='number', name='width', placeholder='Width', value=fields.width, required)
+            div
               label(for='file') Imagen:
             input.l-col--12-of-12#inputProductImage(class=blocks['form__input--rounded'] type='file' name="file" )
             div

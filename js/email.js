@@ -6,7 +6,7 @@ this.smtpConfig = nodemailer.createTransport('SMTP', {
     secureConnection: true,
     port: 465,
     auth: {
-      user: "info@elmolarderus.com",
+      user: "kp@karapixie.com",
       pass: "psw"
     }
   });
@@ -14,7 +14,7 @@ this.smtpConfig = nodemailer.createTransport('SMTP', {
 this.mailOptions = function (email, name, subject, message) {
   var mailOpts = {
       from: name + ' <' + email + '>' ,
-      to: 'info@elmolarderus.com',
+      to: 'kp@karapixie.com',
       //replace it with id you want to send multiple must be separated by ,(comma)
       subject: subject,
       //generateTextFromHTML: true,

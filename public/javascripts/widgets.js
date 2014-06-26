@@ -41,7 +41,7 @@
 function galeryPopup() {
     
   $('.gallery__container').magnificPopup({
-    delegate: 'a:visible',
+    delegate: 'a#popup-image:visible',
     type: 'image',
     gallery: { 
       enabled:true
