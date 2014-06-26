@@ -48,6 +48,9 @@ block page
                   p 
                     span #{item.category.name}
                   p #{item.description}
+                  p
+                    strong
+                      span #{item.height} x #{item.width}
             div.l.l-col--5-of-12(class=blocks['text-area--neutral'])
               a(href='#' class='linkdeleteproduct' rel='' + item._id + '')
                 div.l.spacer__margin-bottom--size-large.background__color--neutral-soft(class=blocks['button--rounded'])

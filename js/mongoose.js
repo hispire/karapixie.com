@@ -78,7 +78,7 @@ var CatalogItem = new Schema({
 });
 
 CatalogItem.path('title').validate(function (v) {
-    return v.length > 5 && v.length < 70;
+    return v.length > 1 && v.length < 70;
 });
 
 var CatalogModel = mongoose.model('CatalogItem', CatalogItem);

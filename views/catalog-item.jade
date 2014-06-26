@@ -25,7 +25,7 @@ block page
             if messages.dataForm
               - var fields = {title: messages.dataForm[0].title, description: messages.dataForm[0].description}
             else
-              - var fields = {title: item.title, description: item.description}
+              - var fields = {title: item.title, description: item.description, height: item.height, width: item.width}
             
             input(type="hidden" name="_method" value="put")
             input(type="hidden" name="item_id" value=item._id)
