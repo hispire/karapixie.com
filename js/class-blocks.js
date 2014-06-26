@@ -86,6 +86,12 @@ var blocks = {
     'spacer__margin-bottom--size-large',
     'reading-text'
   ],
+  'media__figure--small': [
+    'l', 
+    'l-col--3-of-12', 
+    'l-col--2-of-12-sm', 
+    'l-self--align-middle'  
+  ],
   'media__figure--large': [
     'l', 
     'l-col--4-of-12', 

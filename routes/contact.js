@@ -22,7 +22,7 @@ router.route('/')
 })
 .post(function (req, res) {
   req.assert('name', 'Please enter your name').notEmpty();
-  req.assert('email', 'Please enter your email').notEmpty();
+  //req.assert('email', 'Please enter your email').notEmpty();
   req.assert('email', 'Valid email required').isEmail();
   req.assert('message', 'Please write a message').len(5, 1000);
   //var mappedErrors = req.validationErrors(true);
