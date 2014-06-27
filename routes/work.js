@@ -1,32 +1,41 @@
 var express = require('express');
 var router = express.Router();
 var CatalogModel = require('.././js/mongoose').CatalogModel; 
+var CategoryModel = require('.././js/mongoose').CategoryModel;
+var getCategory = require('.././js/cms-helpers').getCategory;
 
 
-router.get('/', function(req, res, next) {
-    
+router.get('/', getCategory, function(req, res, next) {
     CatalogModel.find({}, null, {skip: 0, limit: 4}).sort('id').populate('category').exec(function(err, items){
-    items.forEach(function(item) {
-    });
-    res.render('content/work', {items:items});  
+      res.render('content/work', {items:items});  
   })
-  
 }) 
 
-router.get('/:page', function(req, res, next) {
-    
-    var page = req.params.page;
-    var limit = 4;
-    page = page * limit;
-    CatalogModel.find({}, null, {skip: page, limit: limit}).sort('id').populate('category').exec(function(err, items){
+router.get('/:category/:page', getCategory, function(req, res, next) {
+  var category = req.params.category;
+  var data;
+  var page = req.params.page;
+  var limit = 4;
+  skip = page * limit;
+  if(category == 'all') { 
+    CatalogModel.find({}, null, {skip: skip, limit: limit}).sort('id').populate('category').exec(function(err, items){ 
       if(items.length > 0) {
-        res.render('content/data', {items:items});  
+        res.render('content/data', {items:items, lastPage:page});
       } else {
         res.send('no more data');
       }
-  })
+    })
+  } else {
+    CatalogModel.find({}, null, {skip: skip, limit: limit}).sort('id').populate('category').where('category').equals(category).exec(function(err, items){
+      if(items.length > 0) {
+        res.render('content/data', {items:items, lastPage:page });
+      } else {
+        res.send('no more data');
+      }
+    })
+  }
 
-  
+
 }) 
 /*router.get('/', function(req, res, next) {
     CatalogModel.find().populate('category', {name: 'Oil'}).exec(function(err, items){

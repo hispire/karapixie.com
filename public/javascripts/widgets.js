@@ -35,48 +35,13 @@ function galeryPopup() {
   
 }
 
-function filterData(filter) {
-  if (filter == 'all') {
-        //show all the list items  
-        $('#catalogList li').show();
-	
-	} else {
-  
-        /*using the :not attribute and the filter class in it we are selecting 
-        only the list items that don't have that class and hide them '*/  
-        $('#catalogList li:not(#' + filter + ')').hide();
-	$('#catalogList li:not(#' + filter + ')').removeClass('animated fadeInUp');
-	// show all elements that do share filter
-	$('#catalogList li#' + filter).show(); 
-	$('#catalogList li#' + filter).addClass('animated fadeInUp');
-	}
-  
-  
-}
+
 
 
 // MAGNIFIC ZOOM IMALGES ONCLICK
 $(document).ready(function() {
    $( "#intro" ).parent().css("overflow", "hidden");
    galeryPopup();  
-    // DYNAMIC FILTER DATA
-  
-    //when a link in the filters div is clicked...  
-    $('#filters a').click(function(e){
-  
-        //prevent the default behaviour of the link  
-        e.preventDefault();
-	// remove all the active classes
-	$('#filters a').removeClass('active');
-	// add active class to the current element clicked
-	$(this).addClass('active');
-  
-        //get the id of the clicked link(which is equal to classes of our content  
-        var filter = $(this).attr('id');  
-	filterData(filter);
-        
-  
-    }); 
     // Elevate Zoom when hover image 
     //$('#zoom_01').elevateZoom();
 

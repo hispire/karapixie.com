@@ -5,9 +5,7 @@ each item in items
     - var last = 'l--last-md'
   - else
     - var last = ''
-  - var cat = item.category.name 
-  - var category = cat.replace(/\s+/g, '')
-  li(class=blocks['catalog__item'] class=last id=category)
+  li(class=blocks['catalog__item'] class=last id=item.category.id)
     article(class=blocks['text-area--secondary'] class=blocks['island--small'])
       div.l.l-col--12-of-12.catalog__item.l--align-center
         each image in item.images
@@ -25,3 +23,4 @@ each item in items
               span.background__color--neutral-loud(class=blocks['icon--left'] aria-hidden="true" data-icon!="&#xe614;")
               span More Info
   - nProducts += 1; 
+input(id='lastPage' type='hidden' value=lastPage)

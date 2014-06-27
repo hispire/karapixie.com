@@ -7,18 +7,9 @@ block page
   ul.list--no-style.list--horizontal.l--align-center.spacer__margin-bottom--size-large(id='filters' class=blocks['island--small'])
     li.l--align-center.spacer__margin-bottom--size-large(class=blocks['text-area--neutral-soft'])
       a.container__border--size-xsmall.active(href='#' id='all' class=blocks['container--rounded'] ) All
-    li.l--align-center(class=blocks['text-area--neutral-soft'])
-      a.container__border--size-xsmall(href='#' id='Oil' class=blocks['container--rounded'] ) Oil
-    li.l--align-center.spacer__margin-bottom--size-large(class=blocks['text-area--neutral-soft'])
-      a.container__border--size-xsmall(href='#' id='Acrylic' class=blocks['container--rounded'] ) Acrylic
-    li.l--align-center(class=blocks['text-area--neutral-soft'])
-      a.container__border--size-xsmall(href='#' id='Charcoal' class=blocks['container--rounded'] ) Charcoal
-    li.l--align-center.spacer__margin-bottom--size-large(class=blocks['text-area--neutral-soft'])
-      a.container__border--size-xsmall(href='#' id='PrintMaking' class=blocks['container--rounded'] ) Print Making
-    li.l--align-center(class=blocks['text-area--neutral-soft'])
-      a.container__border--size-xsmall(href='#' id='ReliefPrints' class=blocks['container--rounded'] ) Relief Prints
-    li.l--align-center.spacer__margin-bottom--size-large(class=blocks['text-area--neutral-soft'])
-      a.container__border--size-xsmall(href='#' id='Sketches' class=blocks['container--rounded'] ) Sketches
+    - each category in categories
+      li.l--align-center(class=blocks['text-area--neutral-soft'])
+         a.container__border--size-xsmall(href='#' id=category.id class=blocks['container--rounded'] ) #{category.name}
   div.l.l--align-center.l-col--12-of-12.l--last.animated.fadeInLeft
     ul.l.list--no-style.l-col--12-of-12.l--align-center(id="catalogList").gallery__container
       - var i = 0;
@@ -28,9 +19,7 @@ block page
           - var last = 'l--last-md'
         - else
           - var last = ''
-        - var cat = item.category.name 
-        - var category = cat.replace(/\s+/g, '')
-        li(class=blocks['catalog__item'] class=last id=category)
+        li(class=blocks['catalog__item'] class=last id=item.category.id)
           article(class=blocks['text-area--secondary'] class=blocks['island--small'])
             div.l.l-col--12-of-12.catalog__item.l--align-center
               each image in item.images
