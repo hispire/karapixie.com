@@ -16,19 +16,19 @@ router.get('/:category/:page', getCategory, function(req, res, next) {
   var data;
   var page = req.params.page;
   var limit = 4;
-  skip = page * limit;
+  page = page * limit;
   if(category == 'all') { 
-    CatalogModel.find({}, null, {skip: skip, limit: limit}).sort('id').populate('category').exec(function(err, items){ 
+    CatalogModel.find({}, null, {skip: page, limit: limit}).sort('id').populate('category').exec(function(err, items){ 
       if(items.length > 0) {
-        res.render('content/data', {items:items, lastPage:page});
+        res.render('content/data', {items:items});
       } else {
         res.send('no more data');
       }
     })
   } else {
-    CatalogModel.find({}, null, {skip: skip, limit: limit}).sort('id').populate('category').where('category').equals(category).exec(function(err, items){
+    CatalogModel.find({}, null, {skip: page, limit: limit}).sort('id').populate('category').where('category').equals(category).exec(function(err, items){
       if(items.length > 0) {
-        res.render('content/data', {items:items, lastPage:page });
+        res.render('content/data', {items:items});
       } else {
         res.send('no more data');
       }
