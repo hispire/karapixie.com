@@ -24,43 +24,6 @@ block page
       - if (messages.error)
         div.foreground--error(class=blocks['container--rounded-flash'])
           span.flash__msg= messages.error
-      div.l.l-col--12-of-12.l-col--8-of-12-sm
-        form(id="contact-form" method='post',action='/contact')
-          input(type='hidden', name='_csrf', value=token)
-          - if (title)
-             - var subject = title
-          - else
-            - var subject = ''
-          if messages.dataForm
-            - var fields = {name: messages.dataForm[0].name, email: messages.dataForm[0].email, subject: messages.dataForm[0].subject}
-          else
-            - var fields = {name: '', email: '', subject: subject}
-          div.l-col--12-of-12
-            div.l.l-col--12-of-12.l-col--6-of-12-sm
-              - if (messages.valErrors)
-                - each err in messages.valErrors
-                  -if (err.param === 'name')
-                    span.flash__msg.foreground--error= err.msg
-              input.l-col--12-of-12(class=blocks['form__input--rounded'] type='text',name='name',id='name', placeholder='Enter your name', value=fields.name)
-            div.l.l-col--12-of-12.l-col--6-of-12-sm.l--last-sm
-              - if (messages.valErrors)
-                - each err in messages.valErrors
-                  -if (err.param === 'email')
-                    span.foreground--error.flash__msg= err.msg
-              input.l-col--12-of-12(class=blocks['form__input--rounded'] type='text',name='email',id='email', placeholder='Enter your email address', value=fields.email)
-            div.l.l-col--12-of-12.l-col--6-of-12-sm
-              - if (messages.valErrors)
-                - each err in messages.valErrors
-                  -if (err.param === 'subject')
-                    span.flash__msg.foreground--error= err.msg
-              input.l-col--12-of-12(class=blocks['form__input--rounded'] type='text',name='subject',id='subject', placeholder='Enter a subject', value=fields.subject)
-            div
-              label(for='message') Message
-            - if (messages.valErrors)
-              - each err in messages.valErrors
-                -if (err.param === 'message')
-                  div.l.foreground--error
-                    span.flash__msg= err.msg
-            textarea.l-col--12-of-12.spacer__margin-bottom--size-small(class=blocks['form__input--rounded'] name='message', id='message', placeholder='Hola Rus, me gustaría...')  
-            input.l-col--4-of-12.bg__gradient--linear-tertiary(class=blocks['form__submit--rounded'] type='submit',name='submit',id='submit', value='Send')
-      
+      div.l.l-col--12-of-12.l-col--8-of-12-sm.l--last.sm
+        include form
+        

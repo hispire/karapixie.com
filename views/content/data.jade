@@ -18,7 +18,7 @@ each item in items
           p
             strong
               span #{item.height} x #{item.width}
-          a(href='/contact/' + item.title)
+          a.modalbox(href='#popForm')
             div.l.spacer__margin-top--size-medium.background__color--neutral-loud(class=blocks['button--rounded'])
               span.background__color--neutral-loud(class=blocks['icon--left'] aria-hidden="true" data-icon!="&#xe614;")
               span More Info

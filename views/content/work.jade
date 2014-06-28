@@ -32,7 +32,7 @@ block page
               p
                 strong
                   span #{item.height} x #{item.width}   
-              a(href='/contact/' + item.title)
+              a.modalbox(href='#popForm')
                 div.l.spacer__margin-top--size-medium.background__color--neutral-loud(class=blocks['button--rounded'])
                   span.background__color--neutral-loud(class=blocks['icon--left'] aria-hidden="true" data-icon!="&#xe614;")
                   span More Info
@@ -43,4 +43,8 @@ block page
         div.l.background__color--neutral-mod-soft(class=blocks['button--rounded'])
           span.background__color--neutral-mod-soft(class=blocks['icon--left'] aria-hidden="true" data-icon!="&#xe603;")
           span More 
+  div.l.l-col--12-of-12(id="popForm")
+    div.spacer__padding-top--size-large(class=blocks['text-area--neutral'])
+      h3 Inquiry for sales
+    include form
   script(src="/javascripts/data.js")

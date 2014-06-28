@@ -43,8 +43,9 @@ router.route('/')
       }
      //email sent successfully
       else {
+	res.send('Success');
         req.flash('info', 'Request sent! I will responde as soon as possible');
-        res.redirect('/contact/#contact');
+        //res.redirect('/contact/#contact');
 
     //res.end("Email sent successfully");
       }

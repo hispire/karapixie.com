@@ -121,6 +121,18 @@
 .bg__gradient--linear-red {
   background: linear-gradient(#c90000, #960000);
 }
+.bg__icon--error {
+  background: url("/images/error.png") no-repeat scroll right;
+  background-color: #fefdff;
+  background-size: contain;
+  padding-right: 30px;
+}
+.bg__icon--success {
+  background: url("/images/success.png") no-repeat scroll right;
+  background-color: #fefdff;
+  background-size: contain;
+  padding-right: 30px;
+}
 .container__border--size-xsmall {
   border-width: 1px;
   border-style: solid;
@@ -1596,13 +1608,22 @@ span.flash__msg {
   left: 0;
   height: 100%;
   width: 100%;
-  background: rgba(255,255,255,0.8) url("/images/loading.png") 50% 50% no-repeat;
+  background: rgba(0,0,0,0.8) url("/images/ajax-loader.gif") 50% 50% no-repeat;
 }
 body.loading {
   overflow: hidden;
 }
 body.loading .modal {
   display: block;
+}
+#popForm {
+  display: none;
+}
+#status {
+  display: none;
+}
+#sendText {
+  display: none;
 }
 #location-map {
   height: 14.4375em;
