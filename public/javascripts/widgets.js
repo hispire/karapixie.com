@@ -42,9 +42,6 @@ function sendForm(formId, method, url, callback) {
         data: $(formId).serialize(),
 	statusCode: {
 	  200: function(data){
-	    if(callback) {
-	      callback;
-	    } 
 	    location.href = formId;
             $(formId).fadeOut("fast", function(){
               $('#status').show().text(data);
@@ -60,6 +57,10 @@ function sendForm(formId, method, url, callback) {
 	  }
 	}
 
+    }).done(function() {
+      if(callback) {
+        callback;
+      } 
     });
     
 }
