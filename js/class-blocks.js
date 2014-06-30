@@ -136,6 +136,7 @@ var blocks = {
   'catalog__item': [
     'l',
     'l-col--10-of-12',
+    'l--last',
     'l-col--5-of-12-sm',
     'l-col--3-of-12-md',
     'l--align-center',

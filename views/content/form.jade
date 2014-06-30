@@ -38,6 +38,6 @@ form(id="buyRequest" method='post',action='/contact')
                     span.flash__msg= err.msg
             div#msgError.l.foreground--error
              p
-            textarea.l-col--12-of-12.spacer__margin-bottom--size-small(class=blocks['form__input--rounded'] name='message', id='message', placeholder='Hello! I would like...')  
+            textarea.l-col--12-of-12.spacer__margin-bottom--size-small(class=blocks['form__input--rounded'] name='message', id='message', placeholder='Hello! I would like...' value='')  
             input.l-col--4-of-12.bg__gradient--linear-tertiary(class=blocks['form__submit--rounded'] type='submit',name='submit',id='submit', value='Send')
             em#sendText Sending...

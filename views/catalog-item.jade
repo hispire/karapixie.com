@@ -19,7 +19,7 @@ block page
       - if (messages.valErrors)
         - each err in messages.valErrors
           p #{err.msg}
-      #addProduct
+      #editProduct
         div.l.l-col--11-of-12.l-col--7-of-12-sm.l--last.l--last-sm    
           form#productForm(action='/admin/catalog' method='post' enctype="multipart/form-data")
             if messages.dataForm

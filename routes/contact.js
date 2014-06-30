@@ -37,8 +37,10 @@ router.route('/')
     email.smtpConfig.sendMail(email.mailOptions(req.body.email, req.body.name, req.body.subject, req.body.message), function (error, response) {
       //Email not sent
       if (error) {
+	res.status(500);
+	res.send(error);
         req.flash('error', 'An arror ocurred sending the request!');
-	res.redirect('/contact/#contact');
+	//res.redirect('/contact/#contact');
 	console.log(error);
       }
      //email sent successfully

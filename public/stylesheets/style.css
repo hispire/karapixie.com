@@ -121,16 +121,19 @@
 .bg__gradient--linear-red {
   background: linear-gradient(#c90000, #960000);
 }
+.bg__gradient--linear-orange {
+  background: linear-gradient(#f7dfa5, #f0c14b);
+}
 .bg__icon--error {
-  background: url("/images/error.png") no-repeat scroll right;
+  background: url("/images/error.png") no-repeat scroll 98%;
   background-color: #fefdff;
-  background-size: contain;
+  background-size: 6%;
   padding-right: 30px;
 }
 .bg__icon--success {
-  background: url("/images/success.png") no-repeat scroll right;
+  background: url("/images/success.png") no-repeat scroll 98%;
   background-color: #fefdff;
-  background-size: contain;
+  background-size: 6%;
   padding-right: 30px;
 }
 .container__border--size-xsmall {
@@ -1477,6 +1480,31 @@ span.flash__msg {
   line-height: 1.5;
   font-family: "Open Sans", Helvetica, Verdana, Arial, sans-serif;
 }
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0,0,0,0.8) url("/images/ajax-loader.gif") 50% 50% no-repeat;
+}
+body.loading {
+  overflow: hidden;
+}
+body.loading .modal {
+  display: block;
+}
+#popForm {
+  display: none;
+}
+#status {
+  display: none;
+}
+#sendText {
+  display: none;
+}
 .catalog__item img {
   height: 10em;
 }
@@ -1599,31 +1627,6 @@ span.flash__msg {
 }
 .button--icon {
   padding: 1em;
-}
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background: rgba(0,0,0,0.8) url("/images/ajax-loader.gif") 50% 50% no-repeat;
-}
-body.loading {
-  overflow: hidden;
-}
-body.loading .modal {
-  display: block;
-}
-#popForm {
-  display: none;
-}
-#status {
-  display: none;
-}
-#sendText {
-  display: none;
 }
 #location-map {
   height: 14.4375em;

@@ -7,6 +7,7 @@
  * 
  * FIX error when update image if the image already exist
  * FIX error when delete item if it has no image.
+ * Upload image and then submit form-data
  * Mix implementation for req.flash and express-validator
  * 
  */
@@ -28,8 +29,8 @@ var fs = require('fs');
 /**
  * Products REST API
  */
-router.route('/')
-.get(requireUser("admin"), getCategory, function(req, res){
+router.route('/catalog')
+.get(getCategory, function(req, res){
   CatalogModel.find().populate('category').exec(function(err, items) {
     if(err) {
       console.log(err);
@@ -38,16 +39,16 @@ router.route('/')
     } else {
       res.format({
         'text/plain': function(){
-          res.send('/api/catalog to retrieve data');
+          res.send('hey');
         },
   
         'text/html': function(){
           res.locals.items = items;
-          res.render('catalog');
+          res.render('catalog-data');
         },
   
         'application/json': function(){
-           res.send('/api/catalog to retrieve data');
+           res.json(items);
         }
       });
     }
@@ -55,57 +56,7 @@ router.route('/')
 })
 
 .post(requireUser("admin"), multipartMiddleware, function(req, res) {
-   
-    // PUT method to modify element with a hacked POST form with PUT input
-    if(req.body._method === 'put') {
-      return CatalogModel.findById(req.body.item_id, function(err, item) {
-	if(req.files.files.originalFilename != '') {
-	  console.log('uploading');
-	  deleteFile('./public' + item.images[0].url);
-          var target_path = './public/images/' + req.files.file.name;
-          var url_img = '/images/' + req.files.file.name;
-          // move the file from the temporary location to the intended location
-          renameFile(tmp_path, target_path, function(err, msg) {
-            if (err) {
-              res.locals.err = 'An error ocurred! Sorry try again' + err;
-              res.redirect('/admin/catalog');      
-            } else {
-	      item.images = [{kind: "detail", url: url_img}];
-	      item.title = req.body.title,
-	      item.height = req.body.height,
-	      item.width = req.body.width,
-	      item.category = req.body.category,
-	      item.description = req.body.description,
-	      item.save(function(err,item){
-	        if (err) {
-                  console.log(err);
-	          return res.send(err);
-	        } else {
-	          res.redirect('/admin/catalog');
-	          }
-              })
-	    }
-	  })
-	} else {
-	  // delete tmp images if there is an error validating the form
-          deleteFile(tmp_path);
-	  item.title = req.body.title,
-	  item.category = req.body.category,
-	  item.height = req.body.height,
-	  item.width = req.body.width,
-	  item.description = req.body.description,
-	  item.save(function(err,item){
-	    if (err) {
-              console.log(err);
-	      return res.send(err);
-	    } else {
-	      res.redirect('/admin/catalog');
-	      }
-          })
-	}
-      })
-    // POST new element to the collection
-    } else {
+
     console.log(req.body.imgUrl);
     req.assert('title', 'Please write a title').notEmpty();
     req.assert('description', 'Please write a description').len(5, 1000);
@@ -125,11 +76,12 @@ router.route('/')
       console.log('val errors');
       
       // delete tmp images if there is an error validating the form
+      deleteFile(tmp_path);
       dataForm.title = req.body.title;
       dataForm.description = req.body.description;
       req.flash('dataForm', dataForm);
       req.flash('valErrors', valErrors);
-      res.redirect('/admin/catalog');
+      res.send('Val Errors!');
      
       } else {
 	
@@ -170,7 +122,45 @@ router.route('/')
 	    }
 	}); 
   }
+})
+
+.put(requireUser("admin"), function(req, res) {
+  // PUT method to modify element with a hacked POST form with PUT input
+  CatalogModel.findById(req.body.item_id, function(err, item) {
+    if(req.body.imgUrl != '') {
+      console.log('uploading');
+      deleteFile('./public' + item.images[0].url);
+      item.images = [{kind: "detail", url: req.body.imgUrl}];
+      item.title = req.body.title,
+      item.height = req.body.height,
+      item.width = req.body.width,
+      item.category = req.body.category,
+      item.description = req.body.description,
+      item.save(function(err,item){
+        if (err) {
+          console.log(err);
+          return res.send(err);
+        } else {
+          res.send('Success');
+        }
+      })
+    } else {
+      // delete tmp images if there is an error validating the form
+      item.title = req.body.title,
+      item.category = req.body.category,
+      item.height = req.body.height,
+      item.width = req.body.width,
+      item.description = req.body.description,
+      item.save(function(err,item){
+        if (err) {
+          console.log(err);
+          return res.send(err);
+        } else {
+          res.send('Success');
+        }
+      })
     }
+  })
 })
 
 router.post('/upload', multipartMiddleware, function(req, res) {
@@ -193,20 +183,33 @@ router.post('/upload', multipartMiddleware, function(req, res) {
   });
 });
 
-router.get('/:id', requireUser("admin"), getCategory, function(req, res) {
-  return CatalogModel.findById(req.params.id).populate('category').exec(function(err, item) {
+router.get('/catalog/:id', getCategory, function(req, res) {
+  CatalogModel.findById(req.params.id).populate('category').exec(function(err, item) {
     if(!item) {
       console.log('no product with taht id');
       return res.send('No product with that id');
     }
     if(err) {
       return console.log(err);
+    } else {
+      res.format({
+        'text/plain': function(){
+          res.send('hey');
+        },
+  
+        'text/html': function(){
+          res.locals.item = item;
+          res.render('catalog-item');
+        },
+  
+        'application/json': function(){
+           res.json(item);
+        }
+      });
     }
-    res.locals.item = item;
-    //res.send(products);
-    res.render('catalog-item');
   }); 
 })
+
 
 
 router.delete('/:id', requireUser("admin"), function(req, res) {

@@ -1,4 +1,29 @@
-// Functions =============================================================
+var imgUrl;
+
+$("#Upload").uploadFile({
+ url:'/admin/catalog/upload',
+  multiple:true,
+  dragdropWidth: '100%',
+  statusBarWidth: '100%',
+  maxFileSize:1024*1300,
+  onSubmit:function(files)
+{
+
+},
+onSuccess:function(files,data,xhr)
+{
+	imgUrl = data	
+    console.log(imgUrl);
+    $('#imgUrl').val(imgUrl);
+	
+},
+afterUploadAll:function()
+{
+	$("#eventsmessage").html($("#eventsmessage").html()+"<br/>All files are uploaded");
+	
+}
+}); 
+
 // Check response
 function checkResponse( response ) {
   // Check for a successful response
@@ -27,7 +52,7 @@ function deleteData(url, id) {
             url: url + id
         }).done(function( response ) {
 
-         checkResponse(response);
+         populateData();
 
             // Update the table
             //populateTable();
@@ -45,8 +70,8 @@ function deleteData(url, id) {
 }
 
 // Delete product
-$('#productList').on('click', 'li a.linkdeleteproduct', function() {
+$(document).on('click', '#productList li a.linkdeleteproduct', function(e) {
+  e.preventDefault();
   var id = $(this).attr('rel');
   deleteData('/admin/catalog/', id);
   });
-

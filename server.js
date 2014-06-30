@@ -28,6 +28,7 @@ var login = require('./routes/admin/login');
 var logout = require('./routes/admin/logout');
 var catalog = require('./routes/admin/catalog');
 var work = require('./routes/work');
+var api = require('./routes/api/api');
 
 // multilingual module config
 i18n.configure({
@@ -180,6 +181,7 @@ app.use('/', index);
   res.redirect('/admin');
 });*/
 
+app.use('/api', api);
 
 app.use('/contact', contact);
 

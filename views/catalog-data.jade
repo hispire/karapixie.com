@@ -1,0 +1,34 @@
+ul.list--no-style.l--align-center(id="productList")
+        - var i = 0;
+        - var nProducts = 1;
+        each item in items
+          -if (nProducts != 0 && nProducts % 4 == 0)
+            - var last = 'l--last-md'
+          - else
+            - var last = ''
+          li(class=blocks['catalog__item'] class=last).background__color--neutral-very-loud
+            article(class=blocks['text-area--secondary'] class=blocks['island--small'])
+                div.l.l-col--12-of-12.catalog__item.l--align-center
+                  each image in item.images
+                    a(href=image.url title=item.title)
+                      img(src=image.url alt=item.title)
+                  h4 #{item.title} 
+                  //span.text--xlarge Blend 
+                  p 
+                    span #{item.category.name}
+                  p #{item.description}
+                  p
+                    strong
+                      span #{item.height} x #{item.width}
+            div.l.l-col--5-of-12(class=blocks['text-area--neutral'])
+              a(href='#' class='linkdeleteproduct' rel='' + item._id + '')
+                div.l.spacer__margin-bottom--size-large.background__color--neutral-soft(class=blocks['button--rounded'])
+                  span.background__color--neutral-soft(class=blocks['icon--left'] aria-hidden="true" data-icon!="&#xe624;")
+                  span Delete
+            div.l.l-col--5-of-12.l-self--align-right(class=blocks['text-area--neutral'])
+              a.modalbox(id='editItem' href='#popForm' rel='' + item._id + '')
+                div.l.spacer__margin-bottom--size-large.background__color--neutral-soft(class=blocks['button--rounded'])
+                  span.background__color--neutral-soft(class=blocks['icon--left'] aria-hidden="true" data-icon!="&#xe623;")
+                  span Edit
+          - i += 2;
+          - nProducts += 1;

@@ -1,0 +1,32 @@
+div.l.l-col--11-of-12.l-col--7-of-12-sm.l--last.l--last-sm  
+  div.l-col--12-of-12.l--align-center#status
+    p Success! Item Uploaded!
+  form(id="addProduct" action='/admin/catalog' method='post' enctype="multipart/form-data")
+            input(type="hidden" id="itemId" name="item_id" value='')
+            if messages.dataForm
+              - var fields = {title: messages.dataForm[0].title, description: messages.dataForm[0].description}
+            else
+              - var fields = {title: '', description: '', height: '', width: ''}
+            div
+              label(for='name') Title:
+            input.l-col--12-of-12#title(class=blocks['form__input--rounded'] type='text', name='title', placeholder='Title', value=fields.title, required)
+            div
+              label(for='description') Description:
+            input.l-col--12-of-12#description(class=blocks['form__input--rounded'] type='text', name='description', placeholder='Description', value=fields.description, required)
+            div
+              label(for='category') Category:
+            select(name='category' class=blocks['form__input--rounded'])
+              - each category in categories
+                option(value='' + category.id + '') #{category.name}
+            div
+              label(for='size') Size:
+            input.l-col--5-of-12#height(class=blocks['form__input--rounded'] type='number', name='height', placeholder='Height', value=fields.height, required)
+            input.l-col--5-of-12#width(class=blocks['form__input--rounded'] type='number', name='width', placeholder='Width', value=fields.width, required)
+            div
+              label(for='file') Image:
+            div.l-col--12-of-12#Upload
+              span Upload
+            input(type='hidden' name='imgUrl' id='imgUrl' value='')
+            div
+              input.bg__gradient--linear-tertiary(class=blocks['form__submit--rounded'] id="submit" name='submit' type="submit" value="Add item")
+              em#sendText Uploading...

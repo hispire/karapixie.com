@@ -21,7 +21,6 @@
     after: function(){}     // Function: After callback
   });
 });*/
- 
 function galeryPopup() {
     
   $('.gallery__container').magnificPopup({
@@ -35,78 +34,99 @@ function galeryPopup() {
   
 }
 
-function sendForm(formId) {    
+function sendForm(formId, method, url, callback) { 
+  
     $.ajax({
-        type: 'POST',
-        url: '/contact',
+        type: method,
+        url: url,
         data: $(formId).serialize(),
-        success: function(data) {
-            if(data == "Success") {
-	      location.href = formId;
-                $(formId).fadeOut("fast", function(){
-		  $('#status').show();
-                    setTimeout("$.fancybox.close()", 2000);
-                });
-            }
-        }
+	statusCode: {
+	  200: function(data){
+	    if(callback) {
+	      callback;
+	    } 
+	    location.href = formId;
+            $(formId).fadeOut("fast", function(){
+              $('#status').show().text(data);
+              setTimeout("$.fancybox.close()", 2000);
+            });
+
+	  },
+	  500: function() {
+            $(formId).fadeOut("fast", function(){
+              $('#status').show().text('Sorry! Error sending form, try again later.');
+              setTimeout("$.fancybox.close()", 2000);
+            });
+	  }
+	}
+
     });
     
 }
 
+
+
 function validateEmail(email) {
   var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
   if(filter.test(email)) {
+    $("#email").removeClass("bg__icon--error");
+    $("#email").addClass("bg__icon--success");
     return true;
   } else {
+    $("#email").removeClass("bg__icon--success");
+    $("#email").addClass("bg__icon--error");
     return false;
   }
   
 }
 
-$(document).on('click', "#submit", function(){
+function checkFormVal(element, length) {
+  
+  var val = $(element).val();
+  if (val.length <= length) {
+    $(element).addClass("bg__icon--error");
+    $(element).removeClass("bg__icon--success");
+    return false;
+  } else {
+   $(element).addClass("bg__icon--success");
+   $(element).removeClass("bg__icon--error");
+   return true;
+  }
+};
+
+$(document).on('click', "#buyRequest #submit", function(){
     console.log('validating');
-    var nameval = $("#name").val();
     var emailval = $("#email").val();
-    var subjectval = $("#subject").val();
     var msgval = $("#message").val();
     var msglen = msgval.length;
-    var mailvalid = validateEmail(emailval);
-    
-    if (mailvalid == false) {
-      $("#email").removeClass("bg__icon--success");
-        $("#email").addClass("bg__icon--error");
-    } else {
-      $("#email").removeClass("bg__icon--error");
-      $("#email").addClass("bg__icon--success");
-    }
     
     if (msglen < 4) {
         $('#msgError p').replaceWith('<p>Please write a message</p>');
     } else {
       $('#msgError p').replaceWith('<p></p>');;
     }
-    if (nameval.length < 3) {
-        $("#name").addClass("bg__icon--error");
-	$("#name").removeClass("bg__icon--success");
-    } else {
-     $("#name").addClass("bg__icon--success");
-     $("#name").removeClass("bg__icon--error"); 
-      
-    }
-    if (subjectval.length < 3) {
-        $("#subject").addClass("bg__icon--error");
-	$("#subject").removeClass("bg__icon--success");
-    } else {
-      $("#subject").addClass("bg__icon--success");
-      $("#subject").removeClass("bg__icon--error");
-    }
-    if (mailvalid == true && msglen >= 4 && subjectval.length >= 3 && nameval.length >= 3) {
+    checkFormVal('#name', 2);
+    checkFormVal('#subject', 3);
+
+    if (validateEmail(emailval) == true && msglen >= 4 && checkFormVal('#subject', 4) == true && checkFormVal('#name', 2) == true) {
       $("#submit").hide();
       $("#sendText").show();
-      sendForm('#buyRequest');
+      sendForm('#buyRequest', 'POST', '/contact');
     }
 });
 
+$(document).on('click', "#addProduct #submit", function(){
+  $(this).hide();
+  $("#sendText").show();
+  sendForm('#addProduct', 'POST', '/api/catalog', populateData());
+});
+
+$(document).on('click', "#addProduct #updateSubmit", function(){
+  $(this).hide();
+  console.log($('#addProduct').serialize());
+  $("#sendText").show();
+  sendForm('#addProduct', 'PUT', '/api/catalog', populateData());
+});
 
 
 // MAGNIFIC ZOOM IMALGES ONCLICK
@@ -115,7 +135,8 @@ $(document).ready(function() {
    galeryPopup();  
     // Elevate Zoom when hover image 
     //$('#zoom_01').elevateZoom();
-$(document).on('click', ".modalbox", function(e){
+
+$(document).on('click', ".modalbox#moreInfo", function(e){
   var title = $(this).siblings("h4").text();
   console.log(title);
   $('#subject').val(title);
@@ -125,8 +146,43 @@ $(document).on('click', ".modalbox", function(e){
   $("#sendText").hide();
   
 });
+
+$(document).on('click', ".modalbox#addItem", function(e){
+  $("#addProduct input[type=submit]").attr("id","submit");
+  $('#status').hide();
+  $("#addProduct").show();
+  $("#addProduct #submit").show();
+  $("#sendText").hide();
+  
+});
+
+$(document).on('click', ".modalbox#editItem", function(e){
+  var id = $(this).attr('rel');
+  $('#status').hide();
+  $("#addProduct").show();
+  $("#addProduct input[type=submit]").attr("id","updateSubmit");
+  $("#addProduct #updateSubmit").show();
+  $("#sendText").hide();
+  $.ajax({
+    url: "/api/catalog/" + id, 
+    type: "GET",
+    dataType: "json",
+    success: function (data) {
+      $("#addProduct #title").val(data.title);
+      $("#addProduct #imgUrl").val('');
+      $("#addProduct #description").val(data.description);
+      $("#addProduct #height").val(data.height);
+      $("#addProduct #width").val(data.width);
+      $("#addProduct #itemId").val(data._id);
+
+    }
+  })
+
+  
+});
+
 $('.modalbox').fancybox();
-$("#buyRequest").submit(function() {
+$("#buyRequest, #addProduct").submit(function() {
     return false;
 });
 
