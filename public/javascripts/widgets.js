@@ -34,7 +34,7 @@ function galeryPopup() {
   
 }
 
-function sendForm(formId, method, url, callback) { 
+function sendForm(formId, method, url, populate) { 
   
     $.ajax({
         type: method,
@@ -55,12 +55,16 @@ function sendForm(formId, method, url, callback) {
               setTimeout("$.fancybox.close()", 2000);
             });
 	  }
+	},
+	complete: function() {
+	  console.log('complete put');
+	  if (populate) {
+	    populateData();
+	  }
 	}
 
     }).done(function() {
-      if(callback) {
-        callback;
-      } 
+        console.log('put done'); 
     });
     
 }
@@ -119,14 +123,16 @@ $(document).on('click', "#buyRequest #submit", function(){
 $(document).on('click', "#addProduct #submit", function(){
   $(this).hide();
   $("#sendText").show();
-  sendForm('#addProduct', 'POST', '/api/catalog', populateData());
+  var populate = true;
+  sendForm('#addProduct', 'POST', '/api/catalog', populate);
 });
 
 $(document).on('click', "#addProduct #updateSubmit", function(){
   $(this).hide();
   console.log($('#addProduct').serialize());
   $("#sendText").show();
-  sendForm('#addProduct', 'PUT', '/api/catalog', populateData());
+  var populate = true;
+  sendForm('#addProduct', 'PUT', '/api/catalog', populate);
 });
 
 
@@ -161,6 +167,7 @@ $(document).on('click', ".modalbox#editItem", function(e){
   var id = $(this).attr('rel');
   $('#status').hide();
   $("#addProduct").show();
+  $("#addProduct select option").removeAttr("selected");
   $("#addProduct input[type=submit]").attr("id","updateSubmit");
   $("#addProduct #updateSubmit").show();
   $("#sendText").hide();
@@ -170,6 +177,8 @@ $(document).on('click', ".modalbox#editItem", function(e){
     dataType: "json",
     success: function (data) {
       $("#addProduct #title").val(data.title);
+      $("#addProduct select option[value='" + data.category._id + "']").attr("selected","selected");
+      console.log(data.category._id);
       $("#addProduct #imgUrl").val('');
       $("#addProduct #description").val(data.description);
       $("#addProduct #height").val(data.height);
