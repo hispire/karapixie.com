@@ -6,7 +6,7 @@ var getCategory = require('.././js/cms-helpers').getCategory;
 
 
 router.get('/', getCategory, function(req, res, next) {
-    CatalogModel.find({}, null, {skip: 0, limit: 4}).sort('id').populate('category').exec(function(err, items){
+    CatalogModel.find({}, null, {skip: 0, limit: 4}).populate('category').exec(function(err, items){
       res.render('content/work', {items:items});  
   })
 }) 
@@ -18,7 +18,7 @@ router.get('/:category/:page', getCategory, function(req, res, next) {
   var limit = 4;
   page = page * limit;
   if(category == 'all') { 
-    CatalogModel.find({}, null, {skip: page, limit: limit}).sort('id').populate('category').exec(function(err, items){ 
+    CatalogModel.find({}, null, {skip: page, limit: limit}).populate('category').exec(function(err, items){ 
       if(items.length > 0) {
         res.render('content/data', {items:items});
       } else {
@@ -26,7 +26,7 @@ router.get('/:category/:page', getCategory, function(req, res, next) {
       }
     })
   } else {
-    CatalogModel.find({}, null, {skip: page, limit: limit}).sort('id').populate('category').where('category').equals(category).exec(function(err, items){
+    CatalogModel.find({}, null, {skip: page, limit: limit}).populate('category').where('category').equals(category).exec(function(err, items){
       if(items.length > 0) {
         res.render('content/data', {items:items});
       } else {
