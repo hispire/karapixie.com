@@ -7,6 +7,10 @@ function populateData() {
   }).done(function(data){
     console.log('populating data');
     $('#catalog').html(data);
+    uploadFile();
+    $("#addItemForm").submit(function() {
+    return false;
+    });
   });
 };
 function getItemById(id) {
@@ -21,7 +25,7 @@ function getItemById(id) {
 };
 
 
-populateData();
+
 
 
 

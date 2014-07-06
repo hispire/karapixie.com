@@ -1,9 +1,15 @@
 extends content/page
 block page
   div.reading-text.l--align-center.foreground--error.background__color--neutral-very-loud(class=blocks['text-area--neutral-soft'])
-    h3 Page not found
-    a(href="/index")
-      div.background__color--neutral-soft.spacer__margin-bottom--size-xlarge.foreground__color--neutral-loud(class=blocks['container--rounded-xpadded'])
-        p 
-          span(aria-hidden="true" data-icon!="&#xe622;")  
-          strong Go Back
+    div.l.l-col--10-of-12.l--last.l--align-center
+      h3 Not found
+      h4 Sorry, but the page you were trying to view does not exist.
+      div
+        a(href="/index")
+          div.background__color--neutral-soft.spacer__margin-bottom--size-small.foreground__color--neutral-loud(class=blocks['container--rounded-xpadded'])
+            p 
+              span(aria-hidden="true" data-icon!="&#xe622;")  
+              strong Go Back
+      div.l.l-col--10-of-12.l-col--6-of-12-sm.l--last.l--last-sm.l--align-center
+        img.img--full-size(src='/images/sad-drop.svg')
+      

@@ -1,7 +1,7 @@
 div.l.l-col--11-of-12.l-col--7-of-12-sm.l--last.l--last-sm  
   div.l-col--12-of-12.l--align-center#status
     p Success! Item Uploaded!
-  form(id="addProduct" action='/admin/catalog' method='post' enctype="multipart/form-data")
+  form(id="addItemForm" action='/api/catalog' method='post' enctype="multipart/form-data")
             input(type="hidden" id="itemId" name="item_id" value='')
             if messages.dataForm
               - var fields = {title: messages.dataForm[0].title, description: messages.dataForm[0].description}
@@ -15,9 +15,10 @@ div.l.l-col--11-of-12.l-col--7-of-12-sm.l--last.l--last-sm
             input.l-col--12-of-12#description(class=blocks['form__input--rounded'] type='text', name='description', placeholder='Description', value=fields.description, required)
             div
               label(for='category') Category:
-            select(name='category' class=blocks['form__input--rounded'])
-              - each category in categories
-                option(value='' + category.id + '') #{category.name}
+            if(categories)
+              select(name='category' class=blocks['form__input--rounded'])
+                - each category in categories
+                  option(value='' + category.id + '') #{category.name}
             div
               label(for='size') Size:
             input.l-col--5-of-12#height(class=blocks['form__input--rounded'] type='number', name='height', placeholder='Height', value=fields.height, required)

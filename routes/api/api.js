@@ -163,7 +163,7 @@ router.route('/catalog')
   })
 })
 
-router.post('/upload', multipartMiddleware, function(req, res) {
+router.post('/catalog/upload', requireUser("admin"), multipartMiddleware, function(req, res) {
   // get the temporary location of the file
   console.log(req.files.files);
   console.log(req.files.file.path);
@@ -212,7 +212,7 @@ router.get('/catalog/:id', getCategory, function(req, res) {
 
 
 
-router.delete('/:id', requireUser("admin"), function(req, res) {
+router.delete('/catalog/:id', requireUser("admin"), function(req, res) {
   return CatalogModel.findById(req.params.id, function(err, item) {
     if(!item) {
       console.log('no item with taht id');
@@ -228,14 +228,9 @@ router.delete('/:id', requireUser("admin"), function(req, res) {
         res.send({error: err});
       }
     console.log("removed");
-    retStatus = 'Success';
-    // res.redirect('/team');
-    res.send({
-      retStatus : retStatus,
-      redirectTo: '/admin/catalog'
+    res.send('Removed');
       });
     });
   }); 
-});
 
 module.exports = router;

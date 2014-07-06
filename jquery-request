@@ -17,7 +17,7 @@
         console.log(textStatus); 
         console.dir(jqXHR); 
     }
-});*/ i
+});*/
 
 /*jQuery.post("/admin/products", {
   "name": "Quantum Syrah",  

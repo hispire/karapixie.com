@@ -49,7 +49,6 @@ var blocks = {
     'reading-text'
   ],
   'text-area--neutral-soft': [
-    'l--align-center', 
     'foreground__color--neutral-soft', 
     'reading-text'
   ],
@@ -98,6 +97,12 @@ var blocks = {
     'l-col--3-of-12-sm', 
     'l-self--align-middle'  
   ],
+  'media__figure--xlarge': [
+    'l', 
+    'l-col--7-of-12', 
+    'l-col--5-of-12-sm', 
+    'l-self--align-middle'  
+  ],
   'media__figure--xxlarge': [
     'l', 
     'l-col--10-of-12', 
@@ -115,6 +120,13 @@ var blocks = {
     'l', 
     'l-col--12-of-12', 
     'l-col--9-of-12-sm',
+    'l--last-sm', 
+    'l-self--align-middle',
+  ],
+  'media__content--xlarge': [
+    'l', 
+    'l-col--12-of-12', 
+    'l-col--7-of-12-sm',
     'l--last-sm', 
     'l-self--align-middle',
   ],

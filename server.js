@@ -24,9 +24,9 @@ var checkIfLoggedIn = require('./js/cms-helpers').checkIfLoggedIn;
 // routes
 var index = require('./routes/index');
 var contact = require('./routes/contact');
+var about = require('./routes/about');
 var login = require('./routes/admin/login');
 var logout = require('./routes/admin/logout');
-var catalog = require('./routes/admin/catalog');
 var work = require('./routes/work');
 var api = require('./routes/api/api');
 
@@ -185,13 +185,14 @@ app.use('/api', api);
 
 app.use('/contact', contact);
 
+app.use('/about', about);
+
 app.use('/work', work);
 
 app.use('/admin', login);
 
 app.use('/logout', logout);
 
-app.use('/admin/catalog', catalog);
 
 app.get('/not_allowed', function(req, res){
   res.render('not_allowed');
