@@ -89,9 +89,13 @@ var renameFile  = function(tmp_path, target_path, callback){
 }
 
 var deleteFile = function(path) {
-  fs.unlink(path, function(err) {
-    if(err) throw err;
-  });
+  fs.exists(path, function(exists) {
+    if (exists == true) {
+      fs.unlink(path, function(err) {
+        if(err) throw err;
+      });
+    }
+  })
 }
 
 module.exports.requireUser = requireUser;

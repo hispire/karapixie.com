@@ -9,7 +9,7 @@ function uploadFile() {
     
     onSuccess:function(files,data,xhr)
     {
-      imgUrl = data	
+      imgUrl = data;	
       console.log(imgUrl);
       $('#imgUrl').val(imgUrl);
     },

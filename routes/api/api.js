@@ -7,7 +7,7 @@
  * 
  * FIX error when update image if the image already exist
  * FIX error when delete item if it has no image.
- * Upload image and then submit form-data
+ * Delete image if cancel or close form submit
  * Mix implementation for req.flash and express-validator
  * 
  */
@@ -25,7 +25,7 @@ var CatalogModel = require('../.././js/mongoose').CatalogModel;
 var flash = require('express-flash');
 var expressValidator = require('express-validator');
 var fs = require('fs');
-
+var crypto = require('crypto');
 /**
  * Products REST API
  */
@@ -74,7 +74,6 @@ router.route('/catalog')
     }
     if(valErrors) {
       console.log('val errors');
-      
       // delete tmp images if there is an error validating the form
       deleteFile(tmp_path);
       dataForm.title = req.body.title;
@@ -82,10 +81,7 @@ router.route('/catalog')
       req.flash('dataForm', dataForm);
       req.flash('valErrors', valErrors);
       res.send('Val Errors!');
-     
       } else {
-	
-	   
 	console.log("POST: ");
 	console.log(req.body);
 	var query = {title: req.body.title}; 
@@ -109,14 +105,6 @@ router.route('/catalog')
 		  return res.send(err);
 		} else {
 		  res.send('Success');
-		  //res.redirect('/admin/catalog');
-	    
-	    // send response to cath it with javascript in client side AJAX controller)
-	    //retStatus = 'Success';
-	    //res.send({
-	      //retStatus : retStatus,
-	      //redirectTo: '/admin/products'
-	    //});
 		}
 	      });
 	    }
@@ -128,53 +116,37 @@ router.route('/catalog')
   // PUT method to modify element with a hacked POST form with PUT input
   CatalogModel.findById(req.body.item_id, function(err, item) {
     if(req.body.imgUrl != '') {
-      console.log('uploading');
       deleteFile('./public' + item.images[0].url);
       item.images = [{kind: "detail", url: req.body.imgUrl}];
-      item.title = req.body.title,
-      item.height = req.body.height,
-      item.width = req.body.width,
-      item.category = req.body.category,
-      item.description = req.body.description,
-      item.save(function(err,item){
-        if (err) {
-          console.log(err);
-          return res.send(err);
-        } else {
-          res.send('Success');
-        }
-      })
-    } else {
-      // delete tmp images if there is an error validating the form
-      item.title = req.body.title,
-      item.category = req.body.category,
-      item.height = req.body.height,
-      item.width = req.body.width,
-      item.description = req.body.description,
-      item.save(function(err,item){
-        if (err) {
-          console.log(err);
-          return res.send(err);
-        } else {
-          res.send('Success');
-        }
-      })
     }
+    // delete tmp images if there is an error validating the form
+    item.title = req.body.title,
+    item.category = req.body.category,
+    item.height = req.body.height,
+    item.width = req.body.width,
+    item.description = req.body.description,
+    item.save(function(err,item){
+      if (err) {
+        console.log(err);
+        return res.send(err);
+      } else {
+        res.send('Success');
+      }
+    })
   })
 })
 
 router.post('/catalog/upload', requireUser("admin"), multipartMiddleware, function(req, res) {
   // get the temporary location of the file
-  console.log(req.files.files);
-  console.log(req.files.file.path);
-  console.log(req.files.file.originalFilename);
+  console.log(req.files);
   var tmp_path = req.files.file.path;
-  var target_path = './public/images/' + req.files.file.name;
-  var url_img = '/images/' + req.files.file.name;
+  var img_name = crypto.randomBytes(16).toString('base64');
+  var target_path = './public/images/' + img_name;
+  var url_img = '/images/' + img_name;
   // move the file from the temporary location to the intended location
   renameFile(tmp_path, target_path, function(err, msg) {
     if (err) {
-      console.log('error renaming and moving image');
+      console.log(err);
       res.send = 'An error ocurred! Sorry try again' + err;
       //res.redirect('/admin/catalog');
     } else {
