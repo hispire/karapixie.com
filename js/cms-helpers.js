@@ -98,9 +98,17 @@ var deleteFile = function(path) {
   })
 }
 
+var randomString = function(length) {
+    var result = '';
+    var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+    return result;
+}
+
 module.exports.requireUser = requireUser;
 module.exports.getRoles = getRoles;
 module.exports.getCategory = getCategory;
 module.exports.checkIfLoggedIn = checkIfLoggedIn;
 module.exports.renameFile = renameFile;
 module.exports.deleteFile = deleteFile;
+module.exports.randomString = randomString;

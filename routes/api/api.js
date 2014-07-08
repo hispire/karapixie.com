@@ -20,12 +20,12 @@ var multipartMiddleware = multipart({uploadDir:'./public/images'});
 var requireUser = require('../.././js/cms-helpers').requireUser;
 var renameFile = require('../.././js/cms-helpers').renameFile;
 var deleteFile = require('../.././js/cms-helpers').deleteFile;
+var randomString = require('../.././js/cms-helpers').randomString;
 var getCategory = require('../.././js/cms-helpers').getCategory;
 var CatalogModel = require('../.././js/mongoose').CatalogModel; 
 var flash = require('express-flash');
 var expressValidator = require('express-validator');
 var fs = require('fs');
-var crypto = require('crypto');
 /**
  * Products REST API
  */
@@ -140,7 +140,7 @@ router.post('/catalog/upload', requireUser("admin"), multipartMiddleware, functi
   // get the temporary location of the file
   console.log(req.files);
   var tmp_path = req.files.file.path;
-  var img_name = crypto.randomBytes(16).toString('base64');
+  var img_name = randomString(16);
   var target_path = './public/images/' + img_name;
   var url_img = '/images/' + img_name;
   // move the file from the temporary location to the intended location
