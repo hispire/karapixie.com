@@ -22,10 +22,10 @@ this.mailOptions = function (email, name, subject, message) {
 	    "Email: "+ email + "\n" +
 	    "Subject: "+ subject + "\n" +
 	    "Messsage: \n\n"+ message,
-      html: "<p><b>De: </b>" + name + 
+      html: "<p><b>From: </b>" + name + 
 	    "</p> <p><b>Email: </b>"+ email +
 	    "</p> <p><b>Subject: </b>"+ subject +
-	    "</p> <h4>Mensaje: </h4><p>"+ message + "</p>"
+	    "</p> <h4>Message: </h4><p>"+ message + "</p>"
     
 
   

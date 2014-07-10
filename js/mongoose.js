@@ -62,6 +62,10 @@ var CatalogItem = new Schema({
       type: Schema.Types.ObjectId,
       ref: 'Category'
     },
+    sold: {
+      type: Boolean,
+      default: false
+    },
     height: {
       type: Number,
       required: true

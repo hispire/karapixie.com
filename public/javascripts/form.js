@@ -21,16 +21,12 @@ function sendForm(formId, method, url, populate) {
 	  }
 	},
 	complete: function() {
-	  console.log('complete put');
 	  if (populate) {
 	    populateData();
 	  }
 	}
 
-    }).done(function() {
-        console.log('put done'); 
-    });
-    
+    })
 }
 
 

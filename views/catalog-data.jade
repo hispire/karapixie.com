@@ -9,9 +9,8 @@ ul.list--no-style.l--align-center(id="productList")
           li(class=blocks['catalog__item'] class=last).background__color--neutral-very-loud
             article(class=blocks['text-area--secondary'] class=blocks['island--small'])
                 div.l.l-col--12-of-12.catalog__item.l--align-center
-                  each image in item.images
-                    a(href=image.url title=item.title)
-                      img(src=image.url alt=item.title)
+                  a(id='popup-image' href=item.images[0].url title=item.title)
+                    img(src=item.images[1].url alt=item.title)
                   h4 #{item.title} 
                   //span.text--xlarge Blend 
                   p 

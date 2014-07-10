@@ -24,10 +24,15 @@ div.l.l-col--11-of-12.l-col--7-of-12-sm.l--last.l--last-sm
             input.l-col--5-of-12#height(class=blocks['form__input--rounded'] type='number', name='height', placeholder='Height', value=fields.height, required)
             input.l-col--5-of-12#width(class=blocks['form__input--rounded'] type='number', name='width', placeholder='Width', value=fields.width, required)
             div
+              label(for='sold') Sold:
+              input.regular-checkbox.big-checkbox(id='checkboxSold' type="checkbox" name="sold" value="true")
+              label(for='checkboxSold')
+            div
               label(for='file') Image:
             div.l-col--12-of-12#Upload
               span Upload
-            input(type='hidden' name='imgUrl' id='imgUrl' value='')
+            input(type='hidden' name='imgDetailUrl' id='imgDetailUrl' value='')
+            input(type='hidden' name='imgThumbUrl' id='imgThumbUrl' value='')
             div
               input.bg__gradient--linear-tertiary(class=blocks['form__submit--rounded'] id="submit" name='submit' type="submit" value="Add item")
               em#sendText Uploading...

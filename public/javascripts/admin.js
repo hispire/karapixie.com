@@ -6,12 +6,14 @@ function uploadFile() {
     dragdropWidth: '100%',
     statusBarWidth: '100%',
     maxFileSize:1024*1300,
+    allowedTypes: 'jpg',
     
     onSuccess:function(files,data,xhr)
     {
-      imgUrl = data;	
-      console.log(imgUrl);
-      $('#imgUrl').val(imgUrl);
+      imgDetailUrl = data.imgDetail;
+      imgThumbUrl = data.imgThumb;
+      $('#imgDetailUrl').val(imgDetailUrl);
+      $('#imgThumbUrl').val(imgThumbUrl);
     },
     afterUploadAll:function()
     {
@@ -91,6 +93,9 @@ $(document).on('click', ".modalbox#editItem", function(e){
       $("#addItemForm select option[value='" + data.category._id + "']").attr("selected","selected");
       console.log(data.category._id);
       $("#addItemForm #imgUrl").val('');
+      if(data.sold == true) {
+	$("#addItemForm #checkboxSold").attr("checked","checked");
+      }
       $("#addItemForm #description").val(data.description);
       $("#addItemForm #height").val(data.height);
       $("#addItemForm #width").val(data.width);

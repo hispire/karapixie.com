@@ -37,11 +37,5 @@ router.get('/:category/:page', getCategory, function(req, res, next) {
 
 
 }) 
-/*router.get('/', function(req, res, next) {
-    CatalogModel.find().populate('category', {name: 'Oil'}).exec(function(err, items){
-    res.render('content/work', {items:items});  
-  })
-  
-})*/
 
 module.exports = router;
