@@ -76,7 +76,7 @@ $(document).on('click', ".modalbox#addItem", function(e){
   
 });
 
-$(document).on('click', ".modalbox#editItem", function(e){
+$(document).on('click', ".modalbox.editItem", function(e){
   var id = $(this).attr('rel');
   $('#status').hide();
   $("#addItemForm").show();

@@ -4,6 +4,6 @@
         "tokenLife" : 3600
     },
     "mongoose": {
-        "uri":"mongodb://giorgix:pass@ds053607.mongolab.com:53607/karapixie"
+        "uri":"mongodb://giorgix:DaVinci@ds053607.mongolab.com:53607/karapixie"
     }
 } 

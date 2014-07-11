@@ -9,7 +9,7 @@ ul.list--no-style.l--align-center(id="productList")
           li(class=blocks['catalog__item'] class=last).background__color--neutral-very-loud
             article(class=blocks['text-area--secondary'] class=blocks['island--small'])
                 div.l.l-col--12-of-12.catalog__item.l--align-center
-                  a(id='popup-image' href=item.images[0].url title=item.title)
+                  a(class='popup-image' href=item.images[0].url title=item.title)
                     img(src=item.images[1].url alt=item.title)
                   h4 #{item.title} 
                   //span.text--xlarge Blend 
@@ -25,7 +25,7 @@ ul.list--no-style.l--align-center(id="productList")
                   span.background__color--neutral-soft(class=blocks['icon--left'] aria-hidden="true" data-icon!="&#xe624;")
                   span Delete
             div.l.l-col--5-of-12.l-self--align-right(class=blocks['text-area--neutral'])
-              a.modalbox(id='editItem' href='#popForm' rel='' + item._id + '')
+              a.modalbox.editItem(href='#popForm' rel='' + item._id + '')
                 div.l.spacer__margin-bottom--size-large.background__color--neutral-soft(class=blocks['button--rounded'])
                   span.background__color--neutral-soft(class=blocks['icon--left'] aria-hidden="true" data-icon!="&#xe623;")
                   span Edit

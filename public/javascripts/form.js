@@ -80,7 +80,7 @@ $(document).on('click', "#buyRequest #submit", function(){
     }
 });
 
-$(document).on('click', ".modalbox#moreInfo", function(e){
+$(document).on('click', ".modalbox.moreInfo", function(e){
   var title = $(this).siblings("h4").text();
   console.log(title);
   $('#subject').val(title);

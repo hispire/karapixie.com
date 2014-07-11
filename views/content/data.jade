@@ -8,7 +8,7 @@ each item in items
   li.animated.fadeInLeft(class=blocks['catalog__item'] class=last id=item.category.id)
     article(class=blocks['text-area--secondary'] class=blocks['island--small'])
       div.l.l-col--12-of-12.catalog__item.l--align-center
-        a(id='popup-image' href=item.images[0].url title=item.title)
+        a(class='popup-image' href=item.images[0].url title=item.title)
           img(src=item.images[1].url alt=item.title)
         h4 #{item.title} 
         if (item.sold == true)
@@ -19,7 +19,7 @@ each item in items
         p
           strong
             span #{item.height} x #{item.width}
-        a.modalbox(id='moreInfo' href='#popForm')
+        a.modalbox.moreInfo(href='#popForm')
           div.l.spacer__margin-top--size-medium.background__color--neutral-loud(class=blocks['button--rounded'])
             span.background__color--neutral-loud(class=blocks['icon--left'] aria-hidden="true" data-icon!="&#xe614;")
             span More Info
