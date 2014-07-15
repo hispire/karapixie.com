@@ -196,10 +196,6 @@ app.use('/admin', login);
 
 app.use('/logout', logout);
 
-app.get('/html-editor', requireUser("admin"), function(req, res) {
-  res.render('html-editor');
-});
-
 app.get('/not_allowed', function(req, res){
   res.render('not_allowed');
 });
