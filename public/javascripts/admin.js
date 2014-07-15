@@ -110,7 +110,7 @@ $(document).on('click', ".modalbox.editItem", function(e){
 $("#addItem").hide();
 $(document).on('click', "#linkCatalog", function() {
   $('#wysiwyg').hide();
-  $('#linkAbout').show();
+  $('.linkSectionHtml').show();
   $(this).hide();
   $('#catalog').show();
   populateData();
