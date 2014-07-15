@@ -71,6 +71,7 @@ $(document).on('click', ".modalbox#addItem", function(e){
   $("#addItemForm input[type=submit]").attr("id","submit");
   $('#status').hide();
   $("#addItemForm").show();
+  $('#addItemForm').find("input[type=text], input[type=number], textarea").val("");
   $("#addItemForm #submit").show();
   $("#sendText").hide();
   
@@ -108,7 +109,10 @@ $(document).on('click', ".modalbox.editItem", function(e){
 });
 $("#addItem").hide();
 $(document).on('click', "#linkCatalog", function() {
+  $('#wysiwyg').hide();
+  $('#linkAbout').show();
   $(this).hide();
+  $('#catalog').show();
   populateData();
   $("#addItem").show();
 });
@@ -133,3 +137,73 @@ $(document).on('click', '#productList li a.linkdeleteproduct', function(e) {
   var id = $(this).attr('rel');
   deleteData('/api/catalog/', id);
   });
+  
+tinymce.init({
+  selector: "textarea.edit-html",
+  menubar: false,
+  plugins: [ 'link' ],
+  toolbar: 'bold italic | alignleft aligncenter alignright | bullist numlist | outdent indent | link'
+  });
+
+$('#wysiwyg').hide();
+
+$(document).on('click', ".linkSectionHtml", function() {
+  $('#wysiwyg').show();
+  $('#linkCatalog').show();
+  $("#addItem").hide();
+  $('#catalog').hide();
+  $("#wysiwyg button[type=submit]").attr("id","updateSubmit");
+  var section = $(this).attr('rel');
+  var ed = tinyMCE.get('html_content');
+  $.ajax({
+    type: 'GET',
+    dataType: "json",
+    url: '/content-html/' + section,
+    success: function(data) {
+      console.log(data);
+      $('#section').val(data.section);  
+      $("#section").attr("disabled","disabled");
+      $('#section_title').val(data.title);  
+      ed.setContent(data.body);
+      
+    }
+  });
+
+  $(this).hide();
+});
+
+$(document).on('click', "#wysiwyg #updateSubmit", function(){
+  var ed = tinyMCE.get('html_content');
+  var section = $('#section').val();
+  $("#sendText").show();
+  $.ajax({
+    type: 'PUT',
+    url: '/content-html/' + section,
+    data: {
+      'section': $('#section').val(),  
+      'title': $('#section_title').val(),  
+      'body': ed.getContent()  
+    },
+    complete: function(data) {
+      $('#status').show().text(data);
+    }
+  });
+  $("#sendText").hide();
+});
+
+
+$(document).on('click', "#wysiwyg #htmlSubmit", function(){
+  var ed = tinyMCE.get('html_content');
+  $("#sendText").show();
+  $.ajax({
+    type: 'POST',
+    url: '/content-html',
+    data: {
+      'section': $('#section').val(),  
+      'title': $('#title').val(),  
+      'body': ed.getContent()  
+    }
+  });
+  $("#sendText").hide();
+});
+

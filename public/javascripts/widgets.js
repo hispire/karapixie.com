@@ -39,26 +39,20 @@ function galeryPopup() {
 $(document).ready(function() {
    $( "#intro" ).parent().css("overflow", "hidden");
    galeryPopup();  
-    // Elevate Zoom when hover image 
-    //$('#zoom_01').elevateZoom();
-
-
-
-
-
-$('.modalbox').fancybox();
-$("#buyRequest, #addItemForm").submit(function() {
-    return false;
-});
-
-}); 
-
-$body = $("body");
-
-$(document).on({
-    ajaxStart: function() { $body.addClass("loading");    },
-    ajaxStop: function() { $body.removeClass("loading"); }    
-});
   
+  $('.modalbox').fancybox();
+  // Disable default behavior of submit buttons in forms.
+  $("#buyRequest, #addItemForm, #wysiwyg").submit(function() {
+      return false;
+  });
+
+  // Load and animation when an ajax request start.
+  $body = $("body");
+  $(document).on({
+      ajaxStart: function() { $body.addClass("loading");    },
+      ajaxStop: function() { $body.removeClass("loading"); }    
+  });
+  
+}); 
 
 

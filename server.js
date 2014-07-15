@@ -29,6 +29,7 @@ var login = require('./routes/admin/login');
 var logout = require('./routes/admin/logout');
 var work = require('./routes/work');
 var api = require('./routes/api/api');
+var content_html = require('./routes/content_html');
 
 // multilingual module config
 i18n.configure({
@@ -189,10 +190,15 @@ app.use('/about', about);
 
 app.use('/work', work);
 
+app.use('/content-html', content_html);
+
 app.use('/admin', login);
 
 app.use('/logout', logout);
 
+app.get('/html-editor', requireUser("admin"), function(req, res) {
+  res.render('html-editor');
+});
 
 app.get('/not_allowed', function(req, res){
   res.render('not_allowed');

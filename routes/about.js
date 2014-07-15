@@ -12,13 +12,20 @@
 
 var express = require('express');
 var router = express.Router();
-var email = require('.././js/email.js');
+var ContentModel = require('.././js/mongoose').ContentModel;
 
 
 router.route('/')
 .get(function (req, res) {
-  res.render('content/about');
-  
+  var query = {section: 'about'};
+  ContentModel.findOne(query, function(err, content){
+    if (content) {
+      res.render('content/about', {content: content});
+    } else {
+      res.send(err); 
+    }
+    
+  });  
 })
 
 module.exports = router;

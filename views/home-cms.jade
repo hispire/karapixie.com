@@ -1,21 +1,17 @@
 extends page
 block page
   article
-    div.l-col--12-of-12.background__color--neutral-loud.spacer__margin-bottom--size-small(class=blocks['island--small'])
-      div.l.l-col--7-of-12(class=blocks['text-area--neutral-soft'])
-        if user
-          p Logged in as: 
-            b #{user.username}
-            //b #{user.role}
-      div.l.l-col--5-of-12.l--last
-        a(href="/logout")
-          button.bg__gradient--linear-red(class=blocks['form__submit--rounded'] id='submit') Logout
-        
+    include admin-menu       
     div.l(class=blocks['text-area--neutral'] class=blocks['island--small'])
       a(id='linkCatalog' href='#')
         div.l.spacer__margin-bottom--size-large.background__color--neutral-mod-soft(class=blocks['button--rounded'])
           span.background__color--neutral-mod-soft(class=blocks['icon--left'] aria-hidden="true" data-icon!="&#xe600;")
           span Catalog
+    div.l(class=blocks['text-area--neutral'] class=blocks['island--small'])
+      a.linkSectionHtml(href='#' rel='about')
+        div.l.spacer__margin-bottom--size-large.background__color--neutral-mod-soft(class=blocks['button--rounded'])
+          span.background__color--neutral-mod-soft(class=blocks['icon--left'] aria-hidden="true" data-icon!="&#xe600;")
+          span About
     div.l(class=blocks['text-area--neutral'] class=blocks['island--small'])
       a(id='linkBack' href='/index')
         div.l.background__color--neutral-mod-soft(class=blocks['button--rounded'])
@@ -27,5 +23,6 @@ block page
           span.background__color--neutral-mod-soft(class=blocks['icon--left'] aria-hidden="true" data-icon!="&#xe603;")
           span Add Item
     div#catalog 
+    include html-editor
 
  

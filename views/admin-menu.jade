@@ -1,0 +1,9 @@
+div.l-col--12-of-12.background__color--neutral-loud.spacer__margin-bottom--size-small(class=blocks['island--small'])
+  div.l.l-col--7-of-12(class=blocks['text-area--neutral-soft'])
+    if user
+      p Logged in as: 
+        b #{user.username}
+        //b #{user.role}
+  div.l.l-col--5-of-12.l--last
+    a(href="/logout")
+      button.bg__gradient--linear-red(class=blocks['form__submit--rounded'] type='submit' id='submit') Logout 

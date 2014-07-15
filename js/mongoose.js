@@ -152,11 +152,31 @@ User.methods.checkPassword = function(password) {
 
 var UserModel = mongoose.model('User', User);
 
+// Contetnt
+var Content = new Schema({
+  section: {
+    type: String,
+    required: true
+  },
+  title: {
+    type: String,
+    unique: true,
+    required: true
+  },
+  body: {
+    type: String,
+    unique: true,
+    required: true
+  }
 
+});
+
+var ContentModel = mongoose.model('Content', Content);
 
 module.exports.mongoose = mongoose;
 module.exports.CatalogModel = CatalogModel;
 module.exports.UserModel = UserModel;
 module.exports.RoleModel = RoleModel;
+module.exports.ContentModel = ContentModel;
 module.exports.CategoryModel = CategoryModel;
 

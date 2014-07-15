@@ -43,7 +43,6 @@ var blocks = {
     'spacer__padding-bottom--size-medium', 
   ],
   'text-area--neutral': [
-    'l--align-center', 
     'foreground__color--neutral-loud', 
     'spacer__margin-bottom--size-large',
     'reading-text'
