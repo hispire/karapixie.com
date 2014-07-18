@@ -29,7 +29,7 @@ var login = require('./routes/admin/login');
 var logout = require('./routes/admin/logout');
 var work = require('./routes/work');
 var api = require('./routes/api/api');
-var content_html = require('./routes/content_html');
+var content_html = require('./routes/admin/content_html');
 
 // multilingual module config
 i18n.configure({

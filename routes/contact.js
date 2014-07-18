@@ -38,15 +38,14 @@ router.route('/')
       //Email not sent
       if (error) {
 	res.status(500);
-	res.send(error);
-        req.flash('error', 'An arror ocurred sending the request!');
+	var errText = error.data;
+	res.send('Error sending email! Please try again!');
 	//res.redirect('/contact/#contact');
-	console.log(error);
       }
      //email sent successfully
       else {
-	res.send('Success');
-        req.flash('info', 'Request sent! I will responde as soon as possible');
+	res.send('Email sent! I will responde as soon as possible');
+        //req.flash('info', 'Request sent! I will responde as soon as possible');
         //res.redirect('/contact/#contact');
 
     //res.end("Email sent successfully");

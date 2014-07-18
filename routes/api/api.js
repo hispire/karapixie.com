@@ -2,11 +2,8 @@
  * TODO
  * 
  * Refactor POST
- * Send the data for the CATEGORY field with dataForm when validate form
- * Send error messages when item not found in DB and redirect and render error
  * Delete image if cancel or close form submit
- * Mix implementation for req.flash and express-validator
- * 
+ * Merge signUp and User requests from server.js here 
  */
 
 
@@ -24,6 +21,9 @@ var flash = require('express-flash');
 var expressValidator = require('express-validator');
 var fs = require('fs');
 var imagemagick = require('imagemagick-native');
+
+
+
 /**
  * Products REST API
  */
@@ -37,7 +37,7 @@ router.route('/catalog')
     } else {
       res.format({
         'text/plain': function(){
-          res.send('hey');
+          res.send(items);
         },
   
         'text/html': function(){
@@ -54,60 +54,70 @@ router.route('/catalog')
 })
 
 .post(requireUser("admin"), multipartMiddleware, function(req, res) {
+  console.log(req.body.imgUrl);
+  req.assert('title', 'Please enter a title').notEmpty();
+  req.assert('description', 'Please write a description').len(5, 1000);
+  req.assert('height', 'Please enter a height').notEmpty();
+  req.assert('width', 'Please enter a width').notEmpty();
+  var valErrors = req.validationErrors();
+  var dataForm = {};
 
-    console.log(req.body.imgUrl);
-    req.assert('title', 'Please write a title').notEmpty();
-    req.assert('description', 'Please write a description').len(5, 1000);
-    var valErrors = req.validationErrors();
-    var dataForm = {};
- 
-    // check if the filename is empty so the user didn't upload an image 
-    if(req.body.imgUrl === '') {
-      if(valErrors){  
-	
-        valErrors.push({param: 'file', msg: 'Please upload a picture'});
-      } else {
-        valErrors = {param: 'file', msg: 'Please upload a picture'};
-      }
+  // check if the filename is empty so the user didn't upload an image 
+  if(req.body.imgUrl === '') {
+    if(valErrors){  
+      
+      valErrors.push({param: 'file', msg: 'Please upload a picture'});
+    } else {
+      valErrors = {param: 'file', msg: 'Please upload a picture'};
     }
-    if(valErrors) {
-      console.log('val errors');
-      // delete tmp images if there is an error validating the form
-      dataForm.title = req.body.title;
-      dataForm.description = req.body.description;
-      req.flash('dataForm', dataForm);
-      req.flash('valErrors', valErrors);
-      res.send('Incorrect Data!');
-      } else {
-	console.log("POST: ");
-	console.log(req.body);
-	var query = {title: req.body.title}; 
-	var item = new CatalogModel({
-	title : req.body.title,
-	category: req.body.category,
-	height: req.body.height,
-	width: req.body.width,
-	description : req.body.description,
-	images: [{kind: "detail", url: req.body.imgDetailUrl},
-                 {kind: "thumbnail", url: req.body.imgThumbUrl}]
-	});
-	//var categories = req.body.categories; 
-	CatalogModel.findOne(query, function(err, itemname){
-	    if (itemname) {
-	      err = 'The item already exists';
-	      res.send(err);
-	    } else { 
-	      item.save(function(err,item){
-		if (err) {
-		  console.log(err);
-		  res.send(err);
-		} else {
-		  res.send('Success');
-		}
-	      });
-	    }
-	}); 
   }
+  if(valErrors) {
+    console.log('val errors');
+    // delete tmp images if there is an error validating the form
+    dataForm.title = req.body.title;
+    dataForm.description = req.body.description;
+    dataForm.height = req.body.height;
+    dataForm.width = req.body.width;
+    req.flash('dataForm', dataForm);
+    req.flash('valErrors', valErrors);
+    res.send('Incorrect Data!');
+    } else {
+      console.log("POST: ");
+      console.log(req.body);
+      var query = {title: req.body.title}; 
+      var item = new CatalogModel({
+      title : req.body.title,
+      category: req.body.category,
+      height: req.body.height,
+      width: req.body.width,
+      description : req.body.description,
+      images: [{kind: "detail", url: req.body.imgDetailUrl},
+               {kind: "thumbnail", url: req.body.imgThumbUrl}]
+      });
+      //var categories = req.body.categories; 
+      CatalogModel.findOne(query, function(err, itemname){
+        if (err) {
+          res.status(500);
+          res.send(err);
+        }  
+        if (itemname) {
+          var err = 'The item already exists';
+          res.status(500);
+          res.send(err);
+        } else { 
+          item.save(function(err,item){
+            if (err) {
+              console.log(err);
+              var errorText = 'Error saving the item!';
+              res.status(500);
+              res.send(errorText);
+            } else {
+              res.send('Item Created!');
+            }
+          });
+        }
+      }); 
+    }
 })
 
 .put(requireUser("admin"), function(req, res) {
@@ -116,9 +126,11 @@ router.route('/catalog')
   CatalogModel.findById(req.body.item_id, function(err, item) {
     if(!item) {
       console.log('no item with taht id');
+      res.status(500);
       res.send('No item with that id');
     }
     if(err) {
+      res.status(500);
       res.send(err);
     } else {
       if(req.body.imgDetailUrl != '') {
@@ -137,9 +149,11 @@ router.route('/catalog')
       item.save(function(err,item){
         if (err) {
           console.log(err);
-          return res.send(err);
+          var errorText = 'Error updating the item!';
+          res.status(500);
+          res.send(errorText);
         } else {
-          res.send('Success');
+          res.send('Item Updated!');
         }
       })
     }
@@ -157,7 +171,8 @@ router.post('/catalog/upload', requireUser("admin"), multipartMiddleware, functi
   renameFile(tmp_path, target_path, function(err, msg) {
     if (err) {
       console.log(err);
-      res.send = 'An error ocurred! Sorry try again' + err;
+      res.status(500);
+      res.send('An error ocurred! Sorry try again' + err);
       //res.redirect('/admin/catalog');
     } else {
       var imageFull = fs.readFileSync(target_path);
@@ -180,10 +195,12 @@ router.get('/catalog/:id', getCategory, function(req, res) {
   CatalogModel.findById(req.params.id).populate('category').exec(function(err, item) {
     if(!item) {
       console.log('no item with taht id');
+      res.status(500);
       res.send('No item with that id');
     }
     if(err) {
       console.log(err);
+      res.status(500);
       res.send(err);
     } else {
       res.format({

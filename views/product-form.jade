@@ -1,6 +1,6 @@
 div.l.l-col--11-of-12.l-col--7-of-12-sm.l--last.l--last-sm  
-  div.l-col--12-of-12.l--align-center#status
-    p Success! Item Uploaded!
+  div.l-col--12-of-12.l--align-center
+    p#status
   form(id="addItemForm" action='/api/catalog' method='post' enctype="multipart/form-data")
             input(type="hidden" id="itemId" name="item_id" value='')
             if messages.dataForm
@@ -34,5 +34,5 @@ div.l.l-col--11-of-12.l-col--7-of-12-sm.l--last.l--last-sm
             input(type='hidden' name='imgDetailUrl' id='imgDetailUrl' value='')
             input(type='hidden' name='imgThumbUrl' id='imgThumbUrl' value='')
             div
-              input.bg__gradient--linear-tertiary(class=blocks['form__submit--rounded'] id="submit" name='submit' type="submit" value="Add item")
+              button.bg__gradient--linear-tertiary(class=blocks['form__submit--rounded'] id="submit" name='submit' type="submit") Add item
               em#sendText Uploading...

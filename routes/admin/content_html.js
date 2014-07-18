@@ -12,8 +12,8 @@
 
 var express = require('express');
 var router = express.Router();
-var requireUser = require('.././js/cms-helpers').requireUser;
-var ContentModel = require('.././js/mongoose').ContentModel;
+var requireUser = require('../.././js/cms-helpers').requireUser;
+var ContentModel = require('../.././js/mongoose').ContentModel;
 
 
 router.route('/')

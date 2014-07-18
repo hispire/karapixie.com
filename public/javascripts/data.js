@@ -29,6 +29,7 @@ function AddMoreContent(page, cat){
       });
 }
 
+// FILTER DATA ONLY CLIENT JS
 function filterData(filter) {
   if (filter == 'all') {
         //show all the list items  
@@ -48,9 +49,8 @@ function filterData(filter) {
   
 }
 
-    // DYNAMIC FILTER DATA
-  
-    //when a link in the filters div is clicked...  
+// DYNAMIC FILTER DATA  
+//when a link in the filters div is clicked...  
 $('#filters a').click(function(e){
   i = 0;
   //prevent the default behaviour of the link  

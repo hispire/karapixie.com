@@ -7,15 +7,17 @@ function sendForm(formId, method, url, populate) {
 	statusCode: {
 	  200: function(data){
 	    location.href = formId;
+	    console.log(data);
             $(formId).fadeOut("fast", function(){
               $('#status').show().text(data);
               setTimeout("$.fancybox.close()", 2000);
             });
 
 	  },
-	  500: function() {
+	  500: function(data) {
             $(formId).fadeOut("fast", function(){
-              $('#status').show().text('Sorry! Error sending form, try again later.');
+	      console.log(data);
+              $('#status').show().text(data.responseText);
               setTimeout("$.fancybox.close()", 2000);
             });
 	  }

@@ -67,23 +67,34 @@ function deleteData(url, id) {
 
 }
 
+// ADD ITEM EVENT LOAD POPUP FORM
+
 $(document).on('click', ".modalbox#addItem", function(e){
-  $("#addItemForm input[type=submit]").attr("id","submit");
+  $("#addItemForm button[type=submit]").attr("id","submit");
   $('#status').hide();
   $("#addItemForm").show();
+  $("#addItemForm #submit").show().text('Add Item');
   $('#addItemForm').find("input[type=text], input[type=number], textarea").val("");
   $("#addItemForm #submit").show();
   $("#sendText").hide();
   
 });
 
+$(document).on('click', "#addItemForm #submit", function(){
+  $(this).hide();
+  $("#sendText").show();
+  var populate = true;
+  sendForm('#addItemForm', 'POST', '/api/catalog', populate);
+});
+
+
 $(document).on('click', ".modalbox.editItem", function(e){
   var id = $(this).attr('rel');
   $('#status').hide();
   $("#addItemForm").show();
   $("#addItemForm select option").removeAttr("selected");
-  $("#addItemForm input[type=submit]").attr("id","updateSubmit");
-  $("#addItemForm #updateSubmit").show();
+  $("#addItemForm button[type=submit]").attr("id","updateSubmit");
+  $("#addItemForm #updateSubmit").show().text('Update');
   $("#sendText").hide();
   $.ajax({
     url: "/api/catalog/" + id, 
@@ -117,12 +128,6 @@ $(document).on('click', "#linkCatalog", function() {
   $("#addItem").show();
 });
 
-$(document).on('click', "#addItemForm #submit", function(){
-  $(this).hide();
-  $("#sendText").show();
-  var populate = true;
-  sendForm('#addItemForm', 'POST', '/api/catalog', populate);
-});
 
 $(document).on('click', "#addItemForm #updateSubmit", function(){
   $(this).hide();
@@ -175,7 +180,6 @@ $(document).on('click', ".linkSectionHtml", function() {
 $(document).on('click', "#wysiwyg #updateSubmit", function(){
   var ed = tinyMCE.get('html_content');
   var section = $('#section').val();
-  $("#sendText").show();
   $.ajax({
     type: 'PUT',
     url: '/content-html/' + section,
