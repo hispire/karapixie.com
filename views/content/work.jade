@@ -5,10 +5,10 @@ extends page
 block page
   include menu
   ul.list--no-style.list--horizontal.l--align-center.spacer__margin-bottom--size-large(id='filters' class=blocks['island--small'])
-    li.l--align-center.spacer__margin-bottom--size-large(class=blocks['text-area--neutral-soft'])
+    li.l--align-center.spacer__margin-bottom--size-large(class=blocks['text-area--neutral'])
       a.container__border--size-xsmall.active(href='#' id='all' class=blocks['container--rounded'] ) All
     - each category in categories
-      li.l--align-center.spacer__margin-bottom--size-large(class=blocks['text-area--neutral-soft'])
+      li.l--align-center.spacer__margin-bottom--size-large(class=blocks['text-area--neutral'])
          a.container__border--size-xsmall(href='#' id=category.id class=blocks['container--rounded'] ) #{category.name}
   div.l.l--align-center.l-col--12-of-12.l--last.animated.fadeInLeft
     ul.l.list--no-style.l-col--12-of-12.l--align-center(id="catalogList").gallery__container

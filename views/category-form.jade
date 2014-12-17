@@ -1,0 +1,8 @@
+div.l.l-col--11-of-12.l-col--7-of-12-sm.l--last.l--last-sm  
+  div.l-col--12-of-12.l--align-center
+    p.status
+  form(id="addCategoryForm" action='/api/catalog/category' method='post')
+    div
+      label(for='name') Category:
+    input.l-col--12-of-12#title(class=blocks['form__input--rounded'] type='text', name='category', placeholder='Title')
+    button.bg__gradient--linear-tertiary(class=blocks['form__submit--rounded'] id="submit" name="submit" type="submit") Add category

@@ -65,17 +65,29 @@ function deleteData(url, id) {
 
     }
 
-}
+};
 
-// ADD ITEM EVENT LOAD POPUP FORM
+$("#addItem").hide();
+$("#addCategory").hide();
+$(document).on('click', "#linkCatalog", function() {
+  $('#wysiwyg').hide();
+  $('.linkSectionHtml').show();
+  $(this).hide();
+  $('#catalog').show();
+  populateData();
+  $("#addItem").show();
+  $("#addCategory").show();
+
+});
+
+// ADD ITEM EVENT LOAD FORM TO POPUP
 
 $(document).on('click', ".modalbox#addItem", function(e){
   $("#addItemForm button[type=submit]").attr("id","submit");
-  $('#status').hide();
+  $('.status').hide();
   $("#addItemForm").show();
   $("#addItemForm #submit").show().text('Add Item');
   $('#addItemForm').find("input[type=text], input[type=number], textarea").val("");
-  $("#addItemForm #submit").show();
   $("#sendText").hide();
   
 });
@@ -88,9 +100,11 @@ $(document).on('click', "#addItemForm #submit", function(){
 });
 
 
+
+// UPDATE ITEM EVENT LOAD FORM TO POPUP
 $(document).on('click', ".modalbox.editItem", function(e){
   var id = $(this).attr('rel');
-  $('#status').hide();
+  $('.status').hide();
   $("#addItemForm").show();
   $("#addItemForm select option").removeAttr("selected");
   $("#addItemForm button[type=submit]").attr("id","updateSubmit");
@@ -118,16 +132,6 @@ $(document).on('click', ".modalbox.editItem", function(e){
 
   
 });
-$("#addItem").hide();
-$(document).on('click', "#linkCatalog", function() {
-  $('#wysiwyg').hide();
-  $('.linkSectionHtml').show();
-  $(this).hide();
-  $('#catalog').show();
-  populateData();
-  $("#addItem").show();
-});
-
 
 $(document).on('click', "#addItemForm #updateSubmit", function(){
   $(this).hide();
@@ -136,13 +140,28 @@ $(document).on('click', "#addItemForm #updateSubmit", function(){
   sendForm('#addItemForm', 'PUT', '/api/catalog', populate);
 });
 
+
+
 // Delete product
 $(document).on('click', '#productList li a.linkdeleteproduct', function(e) {
   e.preventDefault();
   var id = $(this).attr('rel');
   deleteData('/api/catalog/', id);
-  });
+});
+
+// ADD CATEGORY EVENT
+$(document).on('click', ".modalbox#addCategory", function(e){
+  $('.status').hide();
+  $("#addCategoryForm").show();
   
+});
+
+$(document).on('click', "#addCategoryForm #submit", function(){
+  var populate = true;
+  sendForm('#addCategoryForm', 'POST', '/api/catalog/category', populate);
+});
+
+
 tinymce.init({
   selector: "textarea.edit-html",
   menubar: false,
@@ -156,6 +175,7 @@ $(document).on('click', ".linkSectionHtml", function() {
   $('#wysiwyg').show();
   $('#linkCatalog').show();
   $("#addItem").hide();
+  $("#addCategory").hide();
   $('#catalog').hide();
   $("#wysiwyg button[type=submit]").attr("id","updateSubmit");
   var section = $(this).attr('rel');
@@ -189,7 +209,7 @@ $(document).on('click', "#wysiwyg #updateSubmit", function(){
       'body': ed.getContent()  
     },
     complete: function(data) {
-      $('#status').show().text(data);
+      $('.status').show().text(data);
     }
   });
   $("#sendText").hide();

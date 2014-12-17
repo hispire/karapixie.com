@@ -313,19 +313,19 @@
   background-color: transparent;
 }
 .foreground__color--secondary-loud {
-  color: #ead1a5;
+  color: #e87600;
 }
 .foreground__color--secondary-loud h3 {
-  color: #edeadc;
+  color: #3b3b3b;
 }
 .foreground__color--secondary-loud h4 {
-  color: #edeadc;
+  color: #3b3b3b;
 }
 .foreground__color--secondary-loud h5 {
   color: #c00;
 }
 .foreground__color--secondary-loud a {
-  color: #edeadc;
+  color: #3b3b3b;
 }
 .foreground__color--secondary-loud span {
   color: #808080;
@@ -1542,7 +1542,8 @@ body.loading {
 body.loading .modal {
   display: block;
 }
-#popForm {
+#popForm,
+#popCategoryForm {
   display: none;
 }
 #status {

@@ -9,7 +9,7 @@ function sendForm(formId, method, url, populate) {
 	    location.href = formId;
 	    console.log(data);
             $(formId).fadeOut("fast", function(){
-              $('#status').show().text(data);
+              $('.status').show().text(data);
               setTimeout("$.fancybox.close()", 2000);
             });
 
@@ -17,7 +17,7 @@ function sendForm(formId, method, url, populate) {
 	  500: function(data) {
             $(formId).fadeOut("fast", function(){
 	      console.log(data);
-              $('#status').show().text(data.responseText);
+              $('.status').show().text(data.responseText);
               setTimeout("$.fancybox.close()", 2000);
             });
 	  }

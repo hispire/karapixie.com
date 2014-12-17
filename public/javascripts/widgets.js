@@ -42,7 +42,8 @@ $(document).ready(function() {
   
   $('.modalbox').fancybox();
   // Disable default behavior of submit buttons in forms.
-  $("#buyRequest, #addItemForm, #wysiwyg").submit(function() {
+  $('#buyRequest, #addItemForm, #wysiwyg, #addCategoryForm').submit(function() {
+      console.log('NO SUBMIT DEFAULT');
       return false;
   });
 

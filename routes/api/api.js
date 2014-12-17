@@ -17,6 +17,7 @@ var deleteFile = require('../.././js/cms-helpers').deleteFile;
 var randomString = require('../.././js/cms-helpers').randomString;
 var getCategory = require('../.././js/cms-helpers').getCategory;
 var CatalogModel = require('../.././js/mongoose').CatalogModel; 
+var CategoryModel = require('../.././js/mongoose').CategoryModel; 
 var flash = require('express-flash');
 var expressValidator = require('express-validator');
 var fs = require('fs');
@@ -247,5 +248,33 @@ router.delete('/catalog/:id', requireUser("admin"), function(req, res) {
     }
   });
 }); 
+
+router.post('/catalog/category', requireUser("admin"), function(req, res) {
+  var category = new CategoryModel({
+    name: req.body.category
+  })
+  CategoryModel.findOne({'name': req.body.category}, function(err, catname){
+    if (err) {
+      res.status(500);
+      res.send(err);
+    }  
+    if (catname) {
+      var err = 'The category already exists';
+      res.status(500);
+      res.send(err);
+    } else { 
+      category.save(function(err,category){
+        if (err) {
+          console.log(err);
+          var errorText = 'Error saving the category!';
+          res.status(500);
+          res.send(errorText);
+        } else {
+          res.send('Category Created!');
+        }
+      });
+    }
+  }); 
+});
 
 module.exports = router;

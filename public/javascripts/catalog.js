@@ -14,7 +14,8 @@ function populateData() {
     console.log('populating data');
     $('#catalog').html(data);
     uploadFile();
-    $("#addItemForm").submit(function() {
+    $("#addItemForm, #addCategoryForm").submit(function() {
+    console.log('SUBMIT');
     return false;
     });
   });
